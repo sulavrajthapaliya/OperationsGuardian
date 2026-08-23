@@ -34,4 +34,8 @@ enum 71000 "OG Exception Area"
     {
         Caption = 'Approvals';
     }
+    value(8; "OG Setup")
+    {
+        Caption = 'Setup';
+    }
 }

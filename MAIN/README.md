@@ -11,7 +11,7 @@ Operations Guardian is a proactive operational exception inbox for Business Cent
 
 > Before AppSource submission, replace the publisher URLs, publisher name, object range, and `OG` affix with values registered/assigned to your publisher.
 
-## Included V1.2 rules
+## Included rules
 
 | Rule code | Area | What it detects | Default threshold |
 |---|---|---|---:|
@@ -23,6 +23,13 @@ Operations Guardian is a proactive operational exception inbox for Business Cent
 | `JOB-QUEUE-FAILED` | System | Job Queue Entry currently in Error status | n/a |
 | `APPROVAL-AGING` | Approvals | Open approval request older than the configured threshold | 2 days |
 | `NO-SERIES-EXHAUSTION` | System | Current applicable No. Series line has reached its warning number, ending number, or is closed/exhausted | n/a |
+| `COMPANY-INFO-INCOMPLETE` | Setup | Company Information is missing core identity/address fields | n/a |
+| `GL-SETUP-INCOMPLETE` | Setup | General Ledger Setup is missing the local currency code | n/a |
+| `SALES-SETUP-INCOMPLETE` | Setup | Sales & Receivables Setup is missing core customer/document number series | n/a |
+| `PURCHASE-SETUP-INCOMPLETE` | Setup | Purchases & Payables Setup is missing core vendor/document number series | n/a |
+| `INVENTORY-SETUP-INCOMPLETE` | Setup | Inventory Setup is missing core item/transfer number series | n/a |
+| `GEN-POSTING-SETUP-INCOMPLETE` | Setup | A General Posting Setup combination is absent or missing core posting accounts | n/a |
+| `INVT-POSTING-SETUP-INCOMPLETE` | Setup | An Inventory Posting Setup combination is absent or missing required inventory accounts | n/a |
 
 ## Architecture
 
@@ -41,6 +48,7 @@ OG Exception Engine
            +--> Manufacturing Rules
            +--> System Rules
            +--> Approval Rules
+           +--> Setup Rules
    |
    v
 OG Exception table
@@ -71,6 +79,7 @@ The provider enum implements the `OG Rule Provider` interface. New providers can
 - Codeunit `71008` **OG Rule Error Writer**
 - Codeunit `71015` **OG System Rules**
 - Codeunit `71016` **OG Approval Rules**
+- Codeunit `71017` **OG Setup Rules**
 - Interface **OG Rule Provider**
 - Permission sets **OG USER** and **OG ADMIN**
 
@@ -81,7 +90,7 @@ The provider enum implements the `OG Rule Provider` interface. New providers can
 3. Run **AL: Download Symbols**.
 4. Publish the extension to a Business Central v28 sandbox.
 5. Assign yourself the `OG ADMIN` permission set.
-6. Search for **Operations Guardian Rules**. Eight default rules are inserted automatically by the install codeunit.
+6. Search for **Operations Guardian Rules**. Fifteen default rules are inserted automatically by the install codeunit.
 7. Choose **Run Scan**.
 8. Search for **Operations Guardian** to open the exception inbox.
 9. Test **Open Source**, **Ignore for 1 Day**, **Ignore for 7 Days**, and **Reopen**.
@@ -89,7 +98,9 @@ The provider enum implements the `OG Rule Provider` interface. New providers can
 11. Put a test Job Queue Entry into **Error** and confirm `JOB-QUEUE-FAILED` creates an exception.
 12. Use an open approval older than the configured threshold and confirm `APPROVAL-AGING` creates an exception.
 13. Create or identify a current No. Series line whose **Last No. Used** has reached **Warning No.** and confirm `NO-SERIES-EXHAUSTION` creates an exception.
-14. When one or more open critical exceptions exist, verify the client notification contains **View Critical Exceptions**.
+14. Clear a monitored field such as **Posted Invoice Nos.** in **Sales & Receivables Setup**, run the scan, and confirm `SALES-SETUP-INCOMPLETE` identifies the missing field.
+15. Restore the setup field, run the scan again, and confirm the setup exception resolves automatically.
+16. When one or more open critical exceptions exist, verify the client notification contains **View Critical Exceptions**.
 
 ## Schedule with Job Queue
 
@@ -168,14 +179,14 @@ Before submission:
 
 ## Default rule creation
 
-- On **app install**, the codeunit **`OG Install`** runs `OnInstallAppPerCompany()` and automatically creates the 8 standard rules if they do not already exist.
+- On **app install**, the codeunit **`OG Install`** runs `OnInstallAppPerCompany()` and automatically creates the 15 standard rules if they do not already exist.
 - On **app upgrade**, the codeunit **`OG Upgrade`** runs `OnUpgradePerCompany()` and adds back any missing standard rules.
 - On the **Operations Guardian Rules** page, the action **Add Missing Default Rules** can be used manually at any time.
 
 
-## V1.2 additions
+## V1.2 and current additions
 
-Operations Guardian now seeds **8 default rules** on install/upgrade:
+Operations Guardian now seeds **15 default rules** on install/upgrade:
 
 1. `SALES-OVERDUE`
 2. `PO-RECEIVED-NOT-INVOICED`
@@ -185,6 +196,19 @@ Operations Guardian now seeds **8 default rules** on install/upgrade:
 6. `JOB-QUEUE-FAILED`
 7. `APPROVAL-AGING`
 8. `NO-SERIES-EXHAUSTION`
+9. `COMPANY-INFO-INCOMPLETE`
+10. `GL-SETUP-INCOMPLETE`
+11. `SALES-SETUP-INCOMPLETE`
+12. `PURCHASE-SETUP-INCOMPLETE`
+13. `INVENTORY-SETUP-INCOMPLETE`
+14. `GEN-POSTING-SETUP-INCOMPLETE`
+15. `INVT-POSTING-SETUP-INCOMPLETE`
+
+### Setup completeness monitoring
+
+The setup provider follows the same rule-provider pipeline as every operational rule. Singleton setup rules create one exception per setup area, while posting setup rules create one exception per posting-group combination. Each exception lists all missing fields, links back to the setup record when it exists, and resolves automatically after a later successful scan finds the setup complete. Individual setup checks can be disabled from **Operations Guardian Rules** when a module or workflow is intentionally unused.
+
+The General Posting Setup rule checks the core sales, purchase, COGS, inventory adjustment, and direct-cost accounts. The Inventory Posting Setup rule always checks **Inventory Account** and also checks **Inventory Account (Interim)** when **Expected Cost Posting to G/L** is enabled.
 
 Additional V1.2 hardening:
 

@@ -4,7 +4,7 @@
   "publisher": "Your Company",
   "version": "1.2.0.0",
   "brief": "Proactive operational exception monitoring for Business Central.",
-  "description": "Detects operational exceptions across sales, purchasing, inventory, warehouse, manufacturing, approvals, job queues, and number series, then presents them in a single actionable inbox.",
+  "description": "Detects operational exceptions and missing core setup across sales, purchasing, inventory, warehouse, manufacturing, approvals, job queues, and number series, then presents them in a single actionable inbox.",
   "privacyStatement": "https://example.com/privacy",
   "EULA": "https://example.com/eula",
   "help": "https://example.com/help",

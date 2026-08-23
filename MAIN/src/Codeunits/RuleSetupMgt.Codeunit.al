@@ -10,6 +10,13 @@ codeunit 71001 "OG Rule Setup Mgt."
         OGInsertRule('JOB-QUEUE-FAILED', 'Job queue entry is in Error status', "OG Exception Area"::"OG System", "OG Exception Severity"::"OG Critical", "OG Rule Provider"::"OG System", 0);
         OGInsertRule('APPROVAL-AGING', 'Open approval request has waited too long', "OG Exception Area"::"OG Approvals", "OG Exception Severity"::"OG Warning", "OG Rule Provider"::"OG Approvals", 2);
         OGInsertRule('NO-SERIES-EXHAUSTION', 'Current number series line is at or beyond its warning number, or is exhausted', "OG Exception Area"::"OG System", "OG Exception Severity"::"OG Warning", "OG Rule Provider"::"OG System", 0);
+        OGInsertRule('COMPANY-INFO-INCOMPLETE', 'Company information has missing core fields', "OG Exception Area"::"OG Setup", "OG Exception Severity"::"OG Warning", "OG Rule Provider"::"OG Setup", 0);
+        OGInsertRule('GL-SETUP-INCOMPLETE', 'General ledger setup has missing core fields', "OG Exception Area"::"OG Setup", "OG Exception Severity"::"OG Critical", "OG Rule Provider"::"OG Setup", 0);
+        OGInsertRule('SALES-SETUP-INCOMPLETE', 'Sales setup has missing core number series', "OG Exception Area"::"OG Setup", "OG Exception Severity"::"OG Critical", "OG Rule Provider"::"OG Setup", 0);
+        OGInsertRule('PURCHASE-SETUP-INCOMPLETE', 'Purchase setup has missing core number series', "OG Exception Area"::"OG Setup", "OG Exception Severity"::"OG Critical", "OG Rule Provider"::"OG Setup", 0);
+        OGInsertRule('INVENTORY-SETUP-INCOMPLETE', 'Inventory setup has missing core number series', "OG Exception Area"::"OG Setup", "OG Exception Severity"::"OG Warning", "OG Rule Provider"::"OG Setup", 0);
+        OGInsertRule('GEN-POSTING-SETUP-INCOMPLETE', 'General posting setup has missing core accounts', "OG Exception Area"::"OG Setup", "OG Exception Severity"::"OG Critical", "OG Rule Provider"::"OG Setup", 0);
+        OGInsertRule('INVT-POSTING-SETUP-INCOMPLETE', 'Inventory posting setup has missing core accounts', "OG Exception Area"::"OG Setup", "OG Exception Severity"::"OG Critical", "OG Rule Provider"::"OG Setup", 0);
 
         OGEnsureCueRecord();
     end;

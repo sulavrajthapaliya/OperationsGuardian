@@ -4,7 +4,7 @@ codeunit 71101 "OG Core Tests"
     Subtype = Test;
 
     [Test]
-    procedure OGDefaultsCreateEightRules()
+    procedure OGDefaultsCreateFifteenRules()
     var
         OGRuleSetup: Record "OG Rule Setup";
         OGRuleSetupMgt: Codeunit "OG Rule Setup Mgt.";
@@ -13,8 +13,9 @@ codeunit 71101 "OG Core Tests"
 
         OGRuleSetupMgt.OGEnsureDefaults();
 
-        OGAssertEqualInteger(8, OGRuleSetup.Count(), 'Default rule count');
+        OGAssertEqualInteger(15, OGRuleSetup.Count(), 'Default rule count');
         OGAssertTrue(OGRuleSetup.Get('NO-SERIES-EXHAUSTION'), 'NO-SERIES-EXHAUSTION should be created.');
+        OGAssertTrue(OGRuleSetup.Get('SALES-SETUP-INCOMPLETE'), 'SALES-SETUP-INCOMPLETE should be created.');
     end;
 
     [Test]
@@ -157,6 +158,97 @@ codeunit 71101 "OG Core Tests"
         OGAssertEqualInteger(1, OGException.Count(), 'Number series at its warning number should create one exception.');
         OGException.FindFirst();
         OGAssertTrue(OGException."OG Status" = OGException."OG Status"::"OG Open", 'Number series exception should be open.');
+    end;
+
+    [Test]
+    procedure OGMissingSalesSetupFieldCreatesActionableException()
+    var
+        OGException: Record "OG Exception";
+        OGRuleSetup: Record "OG Rule Setup";
+        OGSalesSetup: Record "Sales & Receivables Setup";
+        OGExceptionEngine: Codeunit "OG Exception Engine";
+    begin
+        OGRuleSetup.DeleteAll();
+        OGException.DeleteAll();
+        OGInsertTestRule(OGRuleSetup, 'SALES-SETUP-INCOMPLETE', "OG Rule Provider"::"OG Setup");
+
+        if not OGSalesSetup.Get() then begin
+            OGSalesSetup.Init();
+            OGSalesSetup.Insert();
+        end;
+        OGSalesSetup."Posted Invoice Nos." := '';
+        OGSalesSetup.Modify();
+
+        OGExceptionEngine.OGRunAll();
+
+        OGException.SetRange("OG Rule Code", 'SALES-SETUP-INCOMPLETE');
+        OGException.SetRange("OG Fingerprint", 'SETUP|SALES');
+        OGAssertEqualInteger(1, OGException.Count(), 'Missing sales setup fields should create one aggregated exception.');
+        OGException.FindFirst();
+        OGAssertTrue(StrPos(OGException."OG Details", OGSalesSetup.FieldCaption("Posted Invoice Nos.")) > 0, 'Exception details should identify the missing setup field.');
+        OGAssertTrue(not IsNullGuid(OGException."OG Source SystemId"), 'Setup exception should link to the setup record.');
+    end;
+
+    [Test]
+    procedure OGMissingGeneralPostingAccountCreatesCombinationException()
+    var
+        OGException: Record "OG Exception";
+        OGGeneralPostingSetup: Record "General Posting Setup";
+        OGRuleSetup: Record "OG Rule Setup";
+        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGFingerprint: Text[250];
+    begin
+        OGRuleSetup.DeleteAll();
+        OGException.DeleteAll();
+        OGInsertTestRule(OGRuleSetup, 'GEN-POSTING-SETUP-INCOMPLETE', "OG Rule Provider"::"OG Setup");
+
+        if not OGGeneralPostingSetup.FindFirst() then begin
+            OGGeneralPostingSetup.Init();
+            OGGeneralPostingSetup.Insert();
+        end;
+        OGGeneralPostingSetup."Sales Account" := '';
+        OGGeneralPostingSetup.Modify();
+
+        OGExceptionEngine.OGRunAll();
+
+        OGFingerprint := CopyStr(StrSubstNo('SETUP|GEN-POSTING|%1|%2', OGGeneralPostingSetup."Gen. Bus. Posting Group", OGGeneralPostingSetup."Gen. Prod. Posting Group"), 1, MaxStrLen(OGFingerprint));
+        OGException.SetRange("OG Rule Code", 'GEN-POSTING-SETUP-INCOMPLETE');
+        OGException.SetRange("OG Fingerprint", OGFingerprint);
+        OGAssertEqualInteger(1, OGException.Count(), 'Missing general posting account should create one exception for the combination.');
+        OGException.FindFirst();
+        OGAssertTrue(StrPos(OGException."OG Details", OGGeneralPostingSetup.FieldCaption("Sales Account")) > 0, 'Exception details should identify the missing general posting account.');
+        OGAssertTrue(not IsNullGuid(OGException."OG Source SystemId"), 'General posting exception should link to the setup combination.');
+    end;
+
+    [Test]
+    procedure OGMissingInventoryPostingAccountCreatesCombinationException()
+    var
+        OGException: Record "OG Exception";
+        OGInventoryPostingSetup: Record "Inventory Posting Setup";
+        OGRuleSetup: Record "OG Rule Setup";
+        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGFingerprint: Text[250];
+    begin
+        OGRuleSetup.DeleteAll();
+        OGException.DeleteAll();
+        OGInsertTestRule(OGRuleSetup, 'INVT-POSTING-SETUP-INCOMPLETE', "OG Rule Provider"::"OG Setup");
+
+        if not OGInventoryPostingSetup.FindFirst() then begin
+            OGInventoryPostingSetup.Init();
+            OGInventoryPostingSetup.Insert();
+        end;
+        OGInventoryPostingSetup."Inventory Account" := '';
+        OGInventoryPostingSetup.Modify();
+
+        OGExceptionEngine.OGRunAll();
+
+        OGFingerprint := CopyStr(StrSubstNo('SETUP|INVT-POSTING|%1|%2', OGInventoryPostingSetup."Location Code", OGInventoryPostingSetup."Invt. Posting Group Code"), 1, MaxStrLen(OGFingerprint));
+        OGException.SetRange("OG Rule Code", 'INVT-POSTING-SETUP-INCOMPLETE');
+        OGException.SetRange("OG Fingerprint", OGFingerprint);
+        OGAssertEqualInteger(1, OGException.Count(), 'Missing inventory posting account should create one exception for the combination.');
+        OGException.FindFirst();
+        OGAssertTrue(StrPos(OGException."OG Details", OGInventoryPostingSetup.FieldCaption("Inventory Account")) > 0, 'Exception details should identify the missing inventory posting account.');
+        OGAssertTrue(not IsNullGuid(OGException."OG Source SystemId"), 'Inventory posting exception should link to the setup combination.');
     end;
 
     local procedure OGInsertTestRule(var OGRuleSetup: Record "OG Rule Setup"; OGCode: Code[50]; OGProvider: Enum "OG Rule Provider")

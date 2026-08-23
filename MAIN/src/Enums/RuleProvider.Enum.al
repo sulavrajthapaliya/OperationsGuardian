@@ -44,4 +44,9 @@ enum 71003 "OG Rule Provider" implements "OG Rule Provider"
         Caption = 'Approvals';
         Implementation = "OG Rule Provider" = "OG Approval Rules";
     }
+    value(8; "OG Setup")
+    {
+        Caption = 'Setup';
+        Implementation = "OG Rule Provider" = "OG Setup Rules";
+    }
 }

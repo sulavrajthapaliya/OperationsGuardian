@@ -1,3 +1,10 @@
+## [Unreleased]
+- Added an extensible `OG Setup` rule provider and setup exception area.
+- Added seven default setup-completeness rules for Company Information, General Ledger, Sales, Purchasing, Inventory, General Posting Setup, and Inventory Posting Setup.
+- Posting setup checks report the exact posting-group combination and its missing core accounts.
+- Missing fields are aggregated into actionable exceptions that link to the setup record and auto-resolve when completed.
+- Added AL test coverage for setup-rule seeding and missing-field detection.
+
 ## [1.2.0.0] - 2026-08-23
 - Added transactional per-rule execution using `Codeunit.Run` so failed rule writes roll back and later rules continue.
 - Added persistent `OG Last Error` handling for failed rules.
