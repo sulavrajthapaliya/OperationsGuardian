@@ -65,7 +65,7 @@ codeunit 71011 "OG Purchase Rules" implements "OG Rule Provider"
     end;
 
     var
-        OGPurchaseDescriptionFormatLbl: Label 'Purchase order %1 has received quantity not invoiced'; // %1 = purchase order number
-        OGPurchaseDetailsFormatLbl: Label 'Vendor %1; order date %2; received-not-invoiced quantity %3.'; // %1 = vendor number, %2 = order date, %3 = received-not-invoiced quantity
-        OGPurchaseFingerprintFormatLbl: Label 'PURCHASE|%1'; // %1 = purchase order number
+        OGPurchaseDescriptionFormatLbl: Label 'Purchase order %1 has received quantity not invoiced', Comment = '%1 = purchase order number';
+        OGPurchaseDetailsFormatLbl: Label 'Vendor %1; order date %2; received-not-invoiced quantity %3.', Comment = '%1 = vendor number, %2 = order date, %3 = received-not-invoiced quantity';
+        OGPurchaseFingerprintFormatLbl: Label 'PURCHASE|%1', Comment = '%1 = purchase order number';
 }

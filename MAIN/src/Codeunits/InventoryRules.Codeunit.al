@@ -42,7 +42,7 @@ codeunit 71012 "OG Inventory Rules" implements "OG Rule Provider"
     end;
 
     var
-        OGItemDescriptionFormatLbl: Label 'Item %1 is below safety stock'; // %1 = item number
-        OGItemDetailsFormatLbl: Label 'Inventory %1; safety stock %2; shortage %3.'; // %1 = inventory quantity, %2 = safety stock quantity, %3 = shortage quantity
-        OGItemFingerprintFormatLbl: Label 'ITEM|%1'; // %1 = item number
+        OGItemDescriptionFormatLbl: Label 'Item %1 is below safety stock', Comment = '%1 = item number';
+        OGItemDetailsFormatLbl: Label 'Inventory %1; safety stock %2; shortage %3.', Comment = '%1 = inventory quantity, %2 = safety stock quantity, %3 = shortage quantity';
+        OGItemFingerprintFormatLbl: Label 'ITEM|%1', Comment = '%1 = item number';
 }

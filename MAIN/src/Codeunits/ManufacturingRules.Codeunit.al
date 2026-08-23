@@ -57,7 +57,7 @@ codeunit 71014 "OG Manufacturing Rules" implements "OG Rule Provider"
     end;
 
     var
-        OGProdCompDescriptionFormatLbl: Label 'Production order %1 has a shortage of component %2'; // %1 = production order number, %2 = item number
-        OGProdCompDetailsFormatLbl: Label 'Location %1; remaining requirement %2; inventory %3; shortage %4.'; // %1 = location code, %2 = remaining quantity, %3 = available inventory, %4 = shortage quantity
-        OGProdCompFingerprintFormatLbl: Label 'PRODCOMP|%1|%2|%3'; // %1 = production order number, %2 = production order line number, %3 = line number
+        OGProdCompDescriptionFormatLbl: Label 'Production order %1 has a shortage of component %2', Comment = '%1 = production order number, %2 = item number';
+        OGProdCompDetailsFormatLbl: Label 'Location %1; remaining requirement %2; inventory %3; shortage %4.', Comment = '%1 = location code, %2 = remaining quantity, %3 = available inventory, %4 = shortage quantity';
+        OGProdCompFingerprintFormatLbl: Label 'PRODCOMP|%1|%2|%3', Comment = '%1 = production order number, %2 = production order line number, %3 = line number';
 }

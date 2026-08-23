@@ -24,7 +24,7 @@ codeunit 71000 "OG Exception Engine"
 
         OGCollectEnabledRuleCodes(OGRuleCodes);
 
-        foreach OGRuleCode in OGRuleCodes do begin
+        foreach OGRuleCode in OGRuleCodes do
             if OGRuleSetup.Get(OGRuleCode) then begin
                 OGRuleStartedAt := CurrentDateTime();
                 Clear(OGRuleRunner);
@@ -46,7 +46,6 @@ codeunit 71000 "OG Exception Engine"
                     OGTelemetry.OGLogRuleFailed(OGRuleSetup, OGRunId, CurrentDateTime() - OGRuleStartedAt);
                 end;
             end;
-        end;
 
         OGTelemetry.OGLogScanCompleted(OGRunId, CurrentDateTime() - OGScanStartedAt, OGSuccessCount, OGFailureCount);
     end;
@@ -183,7 +182,7 @@ codeunit 71000 "OG Exception Engine"
 
     var
         OGNoSourceErr: Label 'This exception does not have a source record.';
-        OGPageNotFoundErr: Label 'A default page could not be opened for source record %1.'; // %1 = source record number/ID
+        OGPageNotFoundErr: Label 'A default page could not be opened for source record %1.', Comment = '%1 source record number/ID';
         OGPositiveDaysErr: Label 'The number of days must be greater than zero.';
-        OGSourceNotFoundErr: Label 'The source record %1 no longer exists.'; // %1 = source record number/ID
+        OGSourceNotFoundErr: Label 'The source record %1 no longer exists.', Comment = '%1 source record number/ID';
 }

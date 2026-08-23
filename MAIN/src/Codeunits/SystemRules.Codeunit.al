@@ -156,10 +156,10 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
     end;
 
     var
-        OGJobQueueDescriptionFormatLbl: Label 'Job queue entry %1 is in Error'; // %1 = job queue entry description
-        OGJobQueueDetailsFormatLbl: Label 'Object %1 %2; attempts %3 of %4; error: %5'; // %1 = object type, %2 = object ID, %3 = number of attempts, %4 = max attempts, %5 = error message
-        OGJobQueueFingerprintFormatLbl: Label 'JOBQUEUE|%1'; // %1 = job queue entry ID
-        OGNoSeriesDescriptionFormatLbl: Label 'Number series %1 is near exhaustion'; // %1 = number series code
-        OGNoSeriesDetailsFormatLbl: Label 'Description %1; last used %2; warning no. %3; ending no. %4; open %5; starting date %6.'; // %1 = description, %2 = last used, %3 = warning number, %4 = ending number, %5 = open flag, %6 = starting date
-        OGNoSeriesFingerprintFormatLbl: Label 'NOSERIES|%1|%2'; // %1 = series code, %2 = line number
+        OGJobQueueDescriptionFormatLbl: Label 'Job queue entry %1 is in Error', Comment = '%1 = job queue entry description';
+        OGJobQueueDetailsFormatLbl: Label 'Object %1 %2; attempts %3 of %4; error: %5', Comment = '%1 = object type, %2 = object ID, %3 = number of attempts, %4 = max attempts, %5 = error message';
+        OGJobQueueFingerprintFormatLbl: Label 'JOBQUEUE|%1', Comment = '%1 = job queue entry ID';
+        OGNoSeriesDescriptionFormatLbl: Label 'Number series %1 is near exhaustion', Comment = '%1 = number series code';
+        OGNoSeriesDetailsFormatLbl: Label 'Description %1; last used %2; warning no. %3; ending no. %4; open %5; starting date %6.', Comment = '%1 = description, %2 = last used, %3 = warning number, %4 = ending number, %5 = open flag, %6 = starting date';
+        OGNoSeriesFingerprintFormatLbl: Label 'NOSERIES|%1|%2', Comment = '%1 = series code, %2 = line number';
 }

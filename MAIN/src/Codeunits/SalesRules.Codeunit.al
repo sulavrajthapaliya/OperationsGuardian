@@ -64,7 +64,7 @@ codeunit 71010 "OG Sales Rules" implements "OG Rule Provider"
     end;
 
     var
-        OGSalesDescriptionFormatLbl: Label 'Sales order %1 is overdue for shipment'; // %1 = sales order number
-        OGSalesDetailsFormatLbl: Label 'Customer %1; shipment date %2; outstanding quantity %3.'; // %1 = customer number, %2 = shipment date, %3 = outstanding quantity
-        OGSalesFingerprintFormatLbl: Label 'SALES|%1'; // %1 = sales order number
+        OGSalesDescriptionFormatLbl: Label 'Sales order %1 is overdue for shipment', Comment = '%1 = sales order number';
+        OGSalesDetailsFormatLbl: Label 'Customer %1; shipment date %2; outstanding quantity %3.', Comment = '%1 = customer number, %2 = shipment date, %3 = outstanding quantity';
+        OGSalesFingerprintFormatLbl: Label 'SALES|%1', Comment = '%1 = sales order number';
 }

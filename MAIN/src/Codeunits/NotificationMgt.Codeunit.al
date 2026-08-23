@@ -31,7 +31,7 @@ codeunit 71005 "OG Notification Mgt."
     end;
 
     var
-        OGCriticalExceptionsMsg: Label 'Operations Guardian found %1 open critical exception(s).'; // %1 = count of open critical exceptions
+        OGCriticalExceptionsMsg: Label 'Operations Guardian found %1 open critical exception(s).', Comment = '%1 = count of open critical exceptions';
         OGViewCriticalActionLbl: Label 'View Critical Exceptions';
         OGViewCriticalActionToolTipLbl: Label 'Open the Operations Guardian inbox filtered to critical exceptions.';
 }

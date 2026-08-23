@@ -54,7 +54,7 @@ codeunit 71016 "OG Approval Rules" implements "OG Rule Provider"
     end;
 
     var
-        OGAppDescriptionFormatLbl: Label 'Approval request %1 is waiting too long'; // %1 = source document number
-        OGAppDetailsFormatLbl: Label 'Approver %1; sent %2; due date %3; sender %4; approval code %5.'; // %1 = approver ID, %2 = sent date/time, %3 = due date, %4 = sender ID, %5 = approval code
-        OGAppFingerprintFormatLbl: Label 'APPROVAL|%1'; // %1 = approval entry number
+        OGAppDescriptionFormatLbl: Label 'Approval request %1 is waiting too long', Comment = '%1 = source document number';
+        OGAppDetailsFormatLbl: Label 'Approver %1; sent %2; due date %3; sender %4; approval code %5.', Comment = '%1 = approver ID, %2 = sent date/time, %3 = due date, %4 = sender ID, %5 = approval code';
+        OGAppFingerprintFormatLbl: Label 'APPROVAL|%1', Comment = '%1 = approval entry number';
 }
