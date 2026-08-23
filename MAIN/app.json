@@ -1,0 +1,26 @@
+{
+  "id": "7f68798e-9d4e-4d96-a6d7-9b7cb4b32d10",
+  "name": "Operations Guardian",
+  "publisher": "Your Company",
+  "version": "1.2.0.0",
+  "brief": "Proactive operational exception monitoring for Business Central.",
+  "description": "Detects operational exceptions across sales, purchasing, inventory, warehouse, manufacturing, approvals, job queues, and number series, then presents them in a single actionable inbox.",
+  "privacyStatement": "https://example.com/privacy",
+  "EULA": "https://example.com/eula",
+  "help": "https://example.com/help",
+  "url": "https://example.com",
+  "dependencies": [],
+  "platform": "28.0.0.0",
+  "application": "28.0.0.0",
+  "idRanges": [
+    {
+      "from": 71000,
+      "to": 71099
+    }
+  ],
+  "runtime": "17.0",
+  "target": "Cloud",
+  "features": [
+    "NoImplicitWith"
+  ]
+}

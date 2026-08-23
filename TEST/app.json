@@ -1,0 +1,29 @@
+{
+  "id": "d97d4d96-43d4-4dd7-9422-1b7653fdd921",
+  "name": "Operations Guardian Tests",
+  "publisher": "Your Company",
+  "version": "1.2.0.0",
+  "brief": "Automated tests for Operations Guardian.",
+  "description": "Automated AL tests for the Operations Guardian Business Central extension.",
+  "dependencies": [
+    {
+      "id": "7f68798e-9d4e-4d96-a6d7-9b7cb4b32d10",
+      "name": "Operations Guardian",
+      "publisher": "Your Company",
+      "version": "1.2.0.0"
+    }
+  ],
+  "platform": "28.0.0.0",
+  "application": "28.0.0.0",
+  "idRanges": [
+    {
+      "from": 71100,
+      "to": 71199
+    }
+  ],
+  "runtime": "17.0",
+  "target": "Cloud",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
