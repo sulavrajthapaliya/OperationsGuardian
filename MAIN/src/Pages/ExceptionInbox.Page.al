@@ -1,12 +1,12 @@
 page 71000 "OG Exception Inbox"
 {
+    ApplicationArea = All;
+    Caption = 'Operations Guardian';
+    Editable = false;
     PageType = List;
     SourceTable = "OG Exception";
-    Caption = 'Operations Guardian';
-    ApplicationArea = All;
-    UsageCategory = Lists;
-    Editable = false;
     SourceTableView = sorting("OG Status", "OG Severity", "OG Last Detected At") order(descending);
+    UsageCategory = Lists;
 
     layout
     {
@@ -83,8 +83,8 @@ page 71000 "OG Exception Inbox"
         {
             action(OGRunScan)
             {
-                Caption = 'Run Scan';
                 ApplicationArea = All;
+                Caption = 'Run Scan';
                 Image = Refresh;
                 ToolTip = 'Runs all enabled Operations Guardian rules now.';
 
@@ -100,8 +100,8 @@ page 71000 "OG Exception Inbox"
             }
             action(OGOpenSource)
             {
-                Caption = 'Open Source';
                 ApplicationArea = All;
+                Caption = 'Open Source';
                 Image = Navigate;
                 ToolTip = 'Opens the Business Central record that caused the exception.';
 
@@ -114,8 +114,8 @@ page 71000 "OG Exception Inbox"
             }
             action(OGIgnoreOneDay)
             {
-                Caption = 'Ignore for 1 Day';
                 ApplicationArea = All;
+                Caption = 'Ignore for 1 Day';
                 Image = Pause;
                 ToolTip = 'Temporarily ignores the selected exception for one day.';
 
@@ -129,8 +129,8 @@ page 71000 "OG Exception Inbox"
             }
             action(OGIgnoreSevenDays)
             {
-                Caption = 'Ignore for 7 Days';
                 ApplicationArea = All;
+                Caption = 'Ignore for 7 Days';
                 Image = Pause;
                 ToolTip = 'Temporarily ignores the selected exception for seven days.';
 
@@ -144,8 +144,8 @@ page 71000 "OG Exception Inbox"
             }
             action(OGReopen)
             {
-                Caption = 'Reopen';
                 ApplicationArea = All;
+                Caption = 'Reopen';
                 ToolTip = 'Reopens an ignored or resolved exception.';
 
                 trigger OnAction()
@@ -158,8 +158,8 @@ page 71000 "OG Exception Inbox"
             }
             action(OGRuleSetup)
             {
-                Caption = 'Rules';
                 ApplicationArea = All;
+                Caption = 'Rules';
                 Image = Setup;
                 RunObject = page "OG Rule Setup";
                 ToolTip = 'Opens Operations Guardian rule setup.';

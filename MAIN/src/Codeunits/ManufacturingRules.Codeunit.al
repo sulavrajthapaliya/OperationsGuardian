@@ -2,15 +2,15 @@ codeunit 71014 "OG Manufacturing Rules" implements "OG Rule Provider"
 {
     procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
     var
-        OGProdOrder: Record "Production Order";
-        OGProdOrderComponent: Record "Prod. Order Component";
         OGItem: Record Item;
+        OGProdOrderComponent: Record "Prod. Order Component";
+        OGProdOrder: Record "Production Order";
         OGExceptionEngine: Codeunit "OG Exception Engine";
         OGAvailableInventory: Decimal;
-        OGFingerprint: Text[250];
         OGDescription: Text[250];
-        OGDetails: Text[2048];
+        OGFingerprint: Text[250];
         OGRecommendation: Text[250];
+        OGDetails: Text[2048];
     begin
         if OGRuleSetup."OG Code" <> 'PROD-COMP-SHORTAGE' then
             exit;
@@ -34,9 +34,9 @@ codeunit 71014 "OG Manufacturing Rules" implements "OG Rule Provider"
                         OGItem.SetRange("Location Filter");
 
                         if OGAvailableInventory < OGProdOrderComponent."Remaining Quantity" then begin
-                            OGFingerprint := CopyStr(StrSubstNo('PRODCOMP|%1|%2|%3', OGProdOrderComponent."Prod. Order No.", OGProdOrderComponent."Prod. Order Line No.", OGProdOrderComponent."Line No."), 1, MaxStrLen(OGFingerprint));
-                            OGDescription := CopyStr(StrSubstNo('Production order %1 has a shortage of component %2', OGProdOrder."No.", OGProdOrderComponent."Item No."), 1, MaxStrLen(OGDescription));
-                            OGDetails := CopyStr(StrSubstNo('Location %1; remaining requirement %2; inventory %3; shortage %4.', OGProdOrderComponent."Location Code", OGProdOrderComponent."Remaining Quantity", OGAvailableInventory, OGProdOrderComponent."Remaining Quantity" - OGAvailableInventory), 1, MaxStrLen(OGDetails));
+                            OGFingerprint := CopyStr(StrSubstNo(OGProdCompFingerprintFormatLbl, OGProdOrderComponent."Prod. Order No.", OGProdOrderComponent."Prod. Order Line No.", OGProdOrderComponent."Line No."), 1, MaxStrLen(OGFingerprint));
+                            OGDescription := CopyStr(StrSubstNo(OGProdCompDescriptionFormatLbl, OGProdOrder."No.", OGProdOrderComponent."Item No."), 1, MaxStrLen(OGDescription));
+                            OGDetails := CopyStr(StrSubstNo(OGProdCompDetailsFormatLbl, OGProdOrderComponent."Location Code", OGProdOrderComponent."Remaining Quantity", OGAvailableInventory, OGProdOrderComponent."Remaining Quantity" - OGAvailableInventory), 1, MaxStrLen(OGDetails));
                             OGRecommendation := CopyStr('Review reservations and inbound supply, then replenish or reschedule the production order.', 1, MaxStrLen(OGRecommendation));
 
                             OGExceptionEngine.OGUpsertException(
@@ -55,4 +55,9 @@ codeunit 71014 "OG Manufacturing Rules" implements "OG Rule Provider"
                 until OGProdOrderComponent.Next() = 0;
         until OGProdOrder.Next() = 0;
     end;
+
+    var
+        OGProdCompDescriptionFormatLbl: Label 'Production order %1 has a shortage of component %2'; // %1 = production order number, %2 = item number
+        OGProdCompDetailsFormatLbl: Label 'Location %1; remaining requirement %2; inventory %3; shortage %4.'; // %1 = location code, %2 = remaining quantity, %3 = available inventory, %4 = shortage quantity
+        OGProdCompFingerprintFormatLbl: Label 'PRODCOMP|%1|%2|%3'; // %1 = production order number, %2 = production order line number, %3 = line number
 }

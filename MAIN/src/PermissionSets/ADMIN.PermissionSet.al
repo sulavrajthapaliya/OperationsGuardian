@@ -5,8 +5,8 @@ permissionset 71001 "OG ADMIN"
     IncludedPermissionSets = "OG USER";
 
     Permissions =
+        tabledata "OG Cue" = RIMD,
         tabledata "OG Exception" = RIMD,
         tabledata "OG Rule Setup" = RIMD,
-        tabledata "OG Cue" = RIMD,
         codeunit "OG Rule Setup Mgt." = X;
 }

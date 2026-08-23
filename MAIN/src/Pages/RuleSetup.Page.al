@@ -1,11 +1,11 @@
 page 71002 "OG Rule Setup"
 {
+    ApplicationArea = All;
+    Caption = 'Operations Guardian Rules';
+    DelayedInsert = true;
     PageType = List;
     SourceTable = "OG Rule Setup";
-    Caption = 'Operations Guardian Rules';
-    ApplicationArea = All;
     UsageCategory = Administration;
-    DelayedInsert = true;
 
     layout
     {
@@ -68,8 +68,8 @@ page 71002 "OG Rule Setup"
         {
             action(OGRestoreDefaults)
             {
-                Caption = 'Add Missing Default Rules';
                 ApplicationArea = All;
+                Caption = 'Add Missing Default Rules';
                 Image = Insert;
                 ToolTip = 'Adds any standard Operations Guardian rules that do not already exist.';
 
@@ -83,8 +83,8 @@ page 71002 "OG Rule Setup"
             }
             action(OGRunScan)
             {
-                Caption = 'Run Scan';
                 ApplicationArea = All;
+                Caption = 'Run Scan';
                 Image = Refresh;
                 ToolTip = 'Runs all enabled Operations Guardian rules now.';
 
@@ -100,8 +100,8 @@ page 71002 "OG Rule Setup"
             }
             action(OGOpenInbox)
             {
-                Caption = 'Exception Inbox';
                 ApplicationArea = All;
+                Caption = 'Exception Inbox';
                 Image = List;
                 RunObject = page "OG Exception Inbox";
                 ToolTip = 'Opens the Operations Guardian exception inbox.';

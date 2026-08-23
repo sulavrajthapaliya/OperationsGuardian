@@ -3,18 +3,18 @@ codeunit 71000 "OG Exception Engine"
     procedure OGRunAll()
     var
         OGRuleSetup: Record "OG Rule Setup";
-        OGRuleRunner: Codeunit "OG Rule Runner";
         OGRuleErrorWriter: Codeunit "OG Rule Error Writer";
+        OGRuleRunner: Codeunit "OG Rule Runner";
         OGTelemetry: Codeunit "OG Telemetry";
-        OGRuleCodes: List of [Code[50]];
         OGRuleCode: Code[50];
-        OGRunId: Guid;
+        OGRuleStartedAt: DateTime;
         OGRunAt: DateTime;
         OGScanStartedAt: DateTime;
-        OGRuleStartedAt: DateTime;
-        OGSuccessCount: Integer;
-        OGFailureCount: Integer;
+        OGRunId: Guid;
         OGDetectedCount: Integer;
+        OGFailureCount: Integer;
+        OGSuccessCount: Integer;
+        OGRuleCodes: List of [Code[50]];
         OGLastError: Text;
     begin
         OGRunId := CreateGuid();
@@ -128,9 +128,9 @@ codeunit 71000 "OG Exception Engine"
 
     procedure OGOpenSource(OGException: Record "OG Exception")
     var
+        OGPageManagement: Codeunit "Page Management";
         OGRecordRef: RecordRef;
         OGSourceVariant: Variant;
-        OGPageManagement: Codeunit "Page Management";
     begin
         if (OGException."OG Source Table No." = 0) or IsNullGuid(OGException."OG Source SystemId") then
             Error(OGNoSourceErr);
@@ -182,8 +182,8 @@ codeunit 71000 "OG Exception Engine"
     end;
 
     var
-        OGPositiveDaysErr: Label 'The number of days must be greater than zero.';
         OGNoSourceErr: Label 'This exception does not have a source record.';
-        OGSourceNotFoundErr: Label 'The source record %1 no longer exists.';
-        OGPageNotFoundErr: Label 'A default page could not be opened for source record %1.';
+        OGPageNotFoundErr: Label 'A default page could not be opened for source record %1.'; // %1 = source record number/ID
+        OGPositiveDaysErr: Label 'The number of days must be greater than zero.';
+        OGSourceNotFoundErr: Label 'The source record %1 no longer exists.'; // %1 = source record number/ID
 }

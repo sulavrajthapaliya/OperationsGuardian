@@ -1,9 +1,9 @@
 page 71001 "OG Exception FactBox"
 {
+    ApplicationArea = All;
+    Caption = 'Exception Details';
     PageType = CardPart;
     SourceTable = "OG Exception";
-    Caption = 'Exception Details';
-    ApplicationArea = All;
 
     layout
     {

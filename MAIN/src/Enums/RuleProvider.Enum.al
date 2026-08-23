@@ -1,7 +1,7 @@
 enum 71003 "OG Rule Provider" implements "OG Rule Provider"
 {
-    Extensible = true;
     DefaultImplementation = "OG Rule Provider" = "OG Null Rule Provider";
+    Extensible = true;
     UnknownValueImplementation = "OG Rule Provider" = "OG Null Rule Provider";
 
     value(0; "OG None")

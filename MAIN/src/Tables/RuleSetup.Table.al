@@ -51,14 +51,14 @@ table 71001 "OG Rule Setup"
         field(8; "OG Last Run At"; DateTime)
         {
             Caption = 'Last Run At';
-            Editable = false;
             DataClassification = SystemMetadata;
+            Editable = false;
         }
         field(9; "OG Last Error"; Text[2048])
         {
             Caption = 'Last Error';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
     }
 

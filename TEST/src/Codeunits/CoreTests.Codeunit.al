@@ -1,7 +1,7 @@
 codeunit 71101 "OG Core Tests"
 {
-    Subtype = Test;
     RequiredTestIsolation = Function;
+    Subtype = Test;
 
     [Test]
     procedure OGDefaultsCreateEightRules()
@@ -39,12 +39,12 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGUpsertUsesRuleAndFingerprintAsUniqueIdentity()
     var
-        OGRuleSetup: Record "OG Rule Setup";
         OGException: Record "OG Exception";
+        OGRuleSetup: Record "OG Rule Setup";
         OGExceptionEngine: Codeunit "OG Exception Engine";
-        OGRunId: Guid;
         OGRunAt: DateTime;
         OGEmptyGuid: Guid;
+        OGRunId: Guid;
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
@@ -67,8 +67,8 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGFailedRuleRollsBackAndDoesNotStopFollowingRule()
     var
-        OGRuleSetup: Record "OG Rule Setup";
         OGException: Record "OG Exception";
+        OGRuleSetup: Record "OG Rule Setup";
         OGExceptionEngine: Codeunit "OG Exception Engine";
     begin
         OGRuleSetup.DeleteAll();
@@ -95,11 +95,11 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGSuccessfulEmptyScanResolvesPreviousException()
     var
-        OGRuleSetup: Record "OG Rule Setup";
         OGException: Record "OG Exception";
+        OGRuleSetup: Record "OG Rule Setup";
         OGExceptionEngine: Codeunit "OG Exception Engine";
-        OGOldRunId: Guid;
         OGEmptyGuid: Guid;
+        OGOldRunId: Guid;
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
@@ -121,10 +121,10 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGNumberSeriesWarningCreatesException()
     var
-        OGRuleSetup: Record "OG Rule Setup";
-        OGException: Record "OG Exception";
         OGNoSeries: Record "No. Series";
         OGNoSeriesLine: Record "No. Series Line";
+        OGException: Record "OG Exception";
+        OGRuleSetup: Record "OG Rule Setup";
         OGExceptionEngine: Codeunit "OG Exception Engine";
         OGSeriesCode: Code[20];
     begin
@@ -173,8 +173,8 @@ codeunit 71101 "OG Core Tests"
 
     local procedure OGGetUniqueSeriesCode(): Code[20]
     var
-        OGGuidText: Text;
         OGSeriesCode: Code[20];
+        OGGuidText: Text;
     begin
         OGGuidText := DelChr(Format(CreateGuid()), '=', '{}-');
         OGSeriesCode := CopyStr('OG' + OGGuidText, 1, MaxStrLen(OGSeriesCode));

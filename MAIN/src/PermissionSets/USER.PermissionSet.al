@@ -1,0 +1,45 @@
+permissionset 71000 "OG USER"
+{
+    Assignable = true;
+    Caption = 'Operations Guardian User';
+
+    Permissions =
+        tabledata "Approval Entry" = R,
+        tabledata Item = R,
+        tabledata "Job Queue Entry" = R,
+        tabledata "No. Series" = R,
+        tabledata "No. Series Line" = R,
+        table "OG Cue" = X,
+        tabledata "OG Cue" = RI,
+        table "OG Exception" = X,
+        tabledata "OG Exception" = RIM,
+        table "OG Rule Setup" = X,
+        tabledata "OG Rule Setup" = R,
+        tabledata "Prod. Order Component" = R,
+        tabledata "Production Order" = R,
+        tabledata "Purchase Header" = R,
+        tabledata "Purchase Line" = R,
+        tabledata "Sales Header" = R,
+        tabledata "Sales Line" = R,
+        tabledata "Warehouse Shipment Header" = R,
+        codeunit "OG Approval Rules" = X,
+        codeunit "OG Exception Engine" = X,
+        codeunit "OG Inventory Rules" = X,
+        codeunit "OG Manufacturing Rules" = X,
+        codeunit "OG Notification Mgt." = X,
+        codeunit "OG Null Rule Provider" = X,
+        codeunit "OG Purchase Rules" = X,
+        codeunit "OG Rule Error Writer" = X,
+        codeunit "OG Rule Runner" = X,
+        codeunit "OG Rule Setup Mgt." = X,
+        codeunit "OG Sales Rules" = X,
+        codeunit "OG Scanner Job" = X,
+        codeunit "OG System Rules" = X,
+        codeunit "OG Telemetry" = X,
+        codeunit "OG Warehouse Rules" = X,
+        codeunit "Page Management" = X,
+        page "OG Exception FactBox" = X,
+        page "OG Exception Inbox" = X,
+        page "OG Role Center Cues" = X,
+        page "OG Rule Setup" = X;
+}

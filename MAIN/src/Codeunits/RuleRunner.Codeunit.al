@@ -4,8 +4,8 @@ codeunit 71007 "OG Rule Runner"
 
     trigger OnRun()
     var
-        OGRuleProvider: Interface "OG Rule Provider";
         OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGRuleProvider: Interface "OG Rule Provider";
     begin
         if IsNullGuid(OGRunId) then
             Error(OGContextMissingErr);

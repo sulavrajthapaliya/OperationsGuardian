@@ -1,10 +1,10 @@
 page 71003 "OG Role Center Cues"
 {
-    PageType = CardPart;
-    SourceTable = "OG Cue";
-    Caption = 'Operations Guardian';
     ApplicationArea = All;
+    Caption = 'Operations Guardian';
+    PageType = CardPart;
     RefreshOnActivate = true;
+    SourceTable = "OG Cue";
 
     layout
     {
@@ -44,8 +44,8 @@ page 71003 "OG Role Center Cues"
 
     trigger OnOpenPage()
     var
-        OGRuleSetupMgt: Codeunit "OG Rule Setup Mgt.";
         OGNotificationMgt: Codeunit "OG Notification Mgt.";
+        OGRuleSetupMgt: Codeunit "OG Rule Setup Mgt.";
     begin
         OGRuleSetupMgt.OGEnsureCueRecord();
         Rec.Get(1);

@@ -4,10 +4,10 @@ codeunit 71012 "OG Inventory Rules" implements "OG Rule Provider"
     var
         OGItem: Record Item;
         OGExceptionEngine: Codeunit "OG Exception Engine";
-        OGFingerprint: Text[250];
         OGDescription: Text[250];
-        OGDetails: Text[2048];
+        OGFingerprint: Text[250];
         OGRecommendation: Text[250];
+        OGDetails: Text[2048];
     begin
         if OGRuleSetup."OG Code" <> 'ITEM-BELOW-SAFETY-STOCK' then
             exit;
@@ -21,9 +21,9 @@ codeunit 71012 "OG Inventory Rules" implements "OG Rule Provider"
         repeat
             OGItem.CalcFields(Inventory);
             if OGItem.Inventory < OGItem."Safety Stock Quantity" then begin
-                OGFingerprint := CopyStr(StrSubstNo('ITEM|%1', OGItem."No."), 1, MaxStrLen(OGFingerprint));
-                OGDescription := CopyStr(StrSubstNo('Item %1 is below safety stock', OGItem."No."), 1, MaxStrLen(OGDescription));
-                OGDetails := CopyStr(StrSubstNo('Inventory %1; safety stock %2; shortage %3.', OGItem.Inventory, OGItem."Safety Stock Quantity", OGItem."Safety Stock Quantity" - OGItem.Inventory), 1, MaxStrLen(OGDetails));
+                OGFingerprint := CopyStr(StrSubstNo(OGItemFingerprintFormatLbl, OGItem."No."), 1, MaxStrLen(OGFingerprint));
+                OGDescription := CopyStr(StrSubstNo(OGItemDescriptionFormatLbl, OGItem."No."), 1, MaxStrLen(OGDescription));
+                OGDetails := CopyStr(StrSubstNo(OGItemDetailsFormatLbl, OGItem.Inventory, OGItem."Safety Stock Quantity", OGItem."Safety Stock Quantity" - OGItem.Inventory), 1, MaxStrLen(OGDetails));
                 OGRecommendation := CopyStr('Review demand and replenishment, then create or expedite supply if required.', 1, MaxStrLen(OGRecommendation));
 
                 OGExceptionEngine.OGUpsertException(
@@ -40,4 +40,9 @@ codeunit 71012 "OG Inventory Rules" implements "OG Rule Provider"
             end;
         until OGItem.Next() = 0;
     end;
+
+    var
+        OGItemDescriptionFormatLbl: Label 'Item %1 is below safety stock'; // %1 = item number
+        OGItemDetailsFormatLbl: Label 'Inventory %1; safety stock %2; shortage %3.'; // %1 = inventory quantity, %2 = safety stock quantity, %3 = shortage quantity
+        OGItemFingerprintFormatLbl: Label 'ITEM|%1'; // %1 = item number
 }

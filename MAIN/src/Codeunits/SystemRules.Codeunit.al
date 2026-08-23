@@ -14,21 +14,21 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
     var
         OGJobQueueEntry: Record "Job Queue Entry";
         OGExceptionEngine: Codeunit "OG Exception Engine";
-        OGFingerprint: Text[250];
-        OGDescription: Text[250];
-        OGDetails: Text[2048];
-        OGRecommendation: Text[250];
         OGSourceNo: Code[50];
+        OGDescription: Text[250];
+        OGFingerprint: Text[250];
+        OGRecommendation: Text[250];
+        OGDetails: Text[2048];
     begin
         OGJobQueueEntry.SetRange(Status, OGJobQueueEntry.Status::Error);
         if not OGJobQueueEntry.FindSet() then
             exit;
 
         repeat
-            OGFingerprint := CopyStr(StrSubstNo('JOBQUEUE|%1', OGJobQueueEntry.ID), 1, MaxStrLen(OGFingerprint));
-            OGDescription := CopyStr(StrSubstNo('Job queue entry %1 is in Error', OGJobQueueEntry.Description), 1, MaxStrLen(OGDescription));
+            OGFingerprint := CopyStr(StrSubstNo(OGJobQueueFingerprintFormatLbl, OGJobQueueEntry.ID), 1, MaxStrLen(OGFingerprint));
+            OGDescription := CopyStr(StrSubstNo(OGJobQueueDescriptionFormatLbl, OGJobQueueEntry.Description), 1, MaxStrLen(OGDescription));
             OGDetails := CopyStr(
-                StrSubstNo('Object %1 %2; attempts %3 of %4; error: %5',
+                StrSubstNo(OGJobQueueDetailsFormatLbl,
                     OGJobQueueEntry."Object Type to Run",
                     OGJobQueueEntry."Object ID to Run",
                     OGJobQueueEntry."No. of Attempts to Run",
@@ -58,12 +58,12 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
         OGNoSeries: Record "No. Series";
         OGNoSeriesLine: Record "No. Series Line";
         OGExceptionEngine: Codeunit "OG Exception Engine";
-        OGNoSeriesImplementation: Interface "No. Series - Single";
         OGLastNoUsed: Code[20];
-        OGFingerprint: Text[250];
+        OGNoSeriesImplementation: Interface "No. Series - Single";
         OGDescription: Text[250];
-        OGDetails: Text[2048];
+        OGFingerprint: Text[250];
         OGRecommendation: Text[250];
+        OGDetails: Text[2048];
     begin
         if not OGNoSeries.FindSet() then
             exit;
@@ -75,10 +75,10 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
                 OGLastNoUsed := OGNoSeriesImplementation.GetLastNoUsed(OGNoSeriesLine);
 
                 if OGIsNoSeriesAtRisk(OGNoSeriesLine, OGLastNoUsed) then begin
-                    OGFingerprint := CopyStr(StrSubstNo('NOSERIES|%1|%2', OGNoSeriesLine."Series Code", OGNoSeriesLine."Line No."), 1, MaxStrLen(OGFingerprint));
-                    OGDescription := CopyStr(StrSubstNo('Number series %1 is near exhaustion', OGNoSeries.Code), 1, MaxStrLen(OGDescription));
+                    OGFingerprint := CopyStr(StrSubstNo(OGNoSeriesFingerprintFormatLbl, OGNoSeriesLine."Series Code", OGNoSeriesLine."Line No."), 1, MaxStrLen(OGFingerprint));
+                    OGDescription := CopyStr(StrSubstNo(OGNoSeriesDescriptionFormatLbl, OGNoSeries.Code), 1, MaxStrLen(OGDescription));
                     OGDetails := CopyStr(
-                        StrSubstNo('Description %1; last used %2; warning no. %3; ending no. %4; open %5; starting date %6.',
+                        StrSubstNo(OGNoSeriesDetailsFormatLbl,
                             OGNoSeries.Description,
                             OGLastNoUsed,
                             OGNoSeriesLine."Warning No.",
@@ -108,9 +108,9 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
     local procedure OGGetCurrentNoSeriesLine(OGSeriesCode: Code[20]; var OGCurrentNoSeriesLine: Record "No. Series Line"): Boolean
     var
         OGNoSeriesLine: Record "No. Series Line";
+        OGFound: Boolean;
         OGBestStartingDate: Date;
         OGBestLineNo: Integer;
-        OGFound: Boolean;
     begin
         Clear(OGCurrentNoSeriesLine);
         OGNoSeriesLine.SetRange("Series Code", OGSeriesCode);
@@ -118,7 +118,8 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
 
         if not OGNoSeriesLine.FindSet() then
             exit(false);
-
+        OGBestStartingDate := 0D;
+        OGBestLineNo := 0;
         repeat
             if (not OGFound) or
                (OGNoSeriesLine."Starting Date" > OGBestStartingDate) or
@@ -153,4 +154,12 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
 
         exit(false);
     end;
+
+    var
+        OGJobQueueDescriptionFormatLbl: Label 'Job queue entry %1 is in Error'; // %1 = job queue entry description
+        OGJobQueueDetailsFormatLbl: Label 'Object %1 %2; attempts %3 of %4; error: %5'; // %1 = object type, %2 = object ID, %3 = number of attempts, %4 = max attempts, %5 = error message
+        OGJobQueueFingerprintFormatLbl: Label 'JOBQUEUE|%1'; // %1 = job queue entry ID
+        OGNoSeriesDescriptionFormatLbl: Label 'Number series %1 is near exhaustion'; // %1 = number series code
+        OGNoSeriesDetailsFormatLbl: Label 'Description %1; last used %2; warning no. %3; ending no. %4; open %5; starting date %6.'; // %1 = description, %2 = last used, %3 = warning number, %4 = ending number, %5 = open flag, %6 = starting date
+        OGNoSeriesFingerprintFormatLbl: Label 'NOSERIES|%1|%2'; // %1 = series code, %2 = line number
 }

@@ -12,27 +12,27 @@ table 71002 "OG Cue"
         }
         field(2; "OG Open Exceptions"; Integer)
         {
+            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open")));
             Caption = 'Open Exceptions';
             FieldClass = FlowField;
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open")));
         }
         field(3; "OG Critical Exceptions"; Integer)
         {
+            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open"), "OG Severity" = const("OG Critical")));
             Caption = 'Critical Exceptions';
             FieldClass = FlowField;
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open"), "OG Severity" = const("OG Critical")));
         }
         field(4; "OG Warning Exceptions"; Integer)
         {
+            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open"), "OG Severity" = const("OG Warning")));
             Caption = 'Warning Exceptions';
             FieldClass = FlowField;
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open"), "OG Severity" = const("OG Warning")));
         }
         field(5; "OG Ignored Exceptions"; Integer)
         {
+            CalcFormula = count("OG Exception" where("OG Status" = const("OG Ignored")));
             Caption = 'Ignored Exceptions';
             FieldClass = FlowField;
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Ignored")));
         }
     }
 

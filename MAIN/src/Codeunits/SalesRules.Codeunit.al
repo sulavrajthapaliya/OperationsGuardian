@@ -6,10 +6,10 @@ codeunit 71010 "OG Sales Rules" implements "OG Rule Provider"
         OGExceptionEngine: Codeunit "OG Exception Engine";
         OGCutoffDate: Date;
         OGOutstandingQty: Decimal;
-        OGFingerprint: Text[250];
         OGDescription: Text[250];
-        OGDetails: Text[2048];
+        OGFingerprint: Text[250];
         OGRecommendation: Text[250];
+        OGDetails: Text[2048];
     begin
         if OGRuleSetup."OG Code" <> 'SALES-OVERDUE' then
             exit;
@@ -26,9 +26,9 @@ codeunit 71010 "OG Sales Rules" implements "OG Rule Provider"
         repeat
             OGOutstandingQty := OGGetOutstandingSalesQty(OGSalesHeader);
             if OGOutstandingQty > 0 then begin
-                OGFingerprint := CopyStr(StrSubstNo('SALES|%1', OGSalesHeader."No."), 1, MaxStrLen(OGFingerprint));
-                OGDescription := CopyStr(StrSubstNo('Sales order %1 is overdue for shipment', OGSalesHeader."No."), 1, MaxStrLen(OGDescription));
-                OGDetails := CopyStr(StrSubstNo('Customer %1; shipment date %2; outstanding quantity %3.', OGSalesHeader."Sell-to Customer No.", OGSalesHeader."Shipment Date", OGOutstandingQty), 1, MaxStrLen(OGDetails));
+                OGFingerprint := CopyStr(StrSubstNo(OGSalesFingerprintFormatLbl, OGSalesHeader."No."), 1, MaxStrLen(OGFingerprint));
+                OGDescription := CopyStr(StrSubstNo(OGSalesDescriptionFormatLbl, OGSalesHeader."No."), 1, MaxStrLen(OGDescription));
+                OGDetails := CopyStr(StrSubstNo(OGSalesDetailsFormatLbl, OGSalesHeader."Sell-to Customer No.", OGSalesHeader."Shipment Date", OGOutstandingQty), 1, MaxStrLen(OGDetails));
                 OGRecommendation := CopyStr('Review availability, warehouse status, and customer commitment, then update or ship the order.', 1, MaxStrLen(OGRecommendation));
 
                 OGExceptionEngine.OGUpsertException(
@@ -62,4 +62,9 @@ codeunit 71010 "OG Sales Rules" implements "OG Rule Provider"
 
         exit(OGOutstandingQty);
     end;
+
+    var
+        OGSalesDescriptionFormatLbl: Label 'Sales order %1 is overdue for shipment'; // %1 = sales order number
+        OGSalesDetailsFormatLbl: Label 'Customer %1; shipment date %2; outstanding quantity %3.'; // %1 = customer number, %2 = shipment date, %3 = outstanding quantity
+        OGSalesFingerprintFormatLbl: Label 'SALES|%1'; // %1 = sales order number
 }

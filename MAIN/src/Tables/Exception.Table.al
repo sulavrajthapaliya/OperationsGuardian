@@ -9,8 +9,8 @@ table 71000 "OG Exception"
     {
         field(1; "OG Entry No."; BigInteger)
         {
-            Caption = 'Entry No.';
             AutoIncrement = true;
+            Caption = 'Entry No.';
             DataClassification = SystemMetadata;
         }
         field(2; "OG Rule Code"; Code[50])
