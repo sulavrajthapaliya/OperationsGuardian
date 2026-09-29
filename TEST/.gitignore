@@ -1,0 +1,5 @@
+.alpackages/
+*.app
+*.rapidstart
+alcache/
+.alcache
