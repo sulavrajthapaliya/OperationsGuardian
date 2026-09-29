@@ -1,4 +1,5 @@
 .alpackages/
-.vscode/launch.json
 *.app
 *.rapidstart
+alcache/
+.alcache
