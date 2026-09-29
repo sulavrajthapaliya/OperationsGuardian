@@ -1,15 +1,15 @@
-codeunit 71012 "OG Inventory Rules" implements "OG Rule Provider"
+codeunit 71012 "InventoryRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGItem: Record Item;
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGDescription: Text[250];
         OGFingerprint: Text[250];
         OGRecommendation: Text[250];
         OGDetails: Text[2048];
     begin
-        if OGRuleSetup."OG Code" <> 'ITEM-BELOW-SAFETY-STOCK' then
+        if OGRuleSetup."Code" <> 'ITEM-BELOW-SAFETY-STOCK' then
             exit;
 
         OGItem.SetRange(Blocked, false);

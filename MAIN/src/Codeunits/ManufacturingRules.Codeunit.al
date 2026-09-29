@@ -1,18 +1,18 @@
-codeunit 71014 "OG Manufacturing Rules" implements "OG Rule Provider"
+codeunit 71014 "ManufacturingRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGItem: Record Item;
         OGProdOrderComponent: Record "Prod. Order Component";
         OGProdOrder: Record "Production Order";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGAvailableInventory: Decimal;
         OGDescription: Text[250];
         OGFingerprint: Text[250];
         OGRecommendation: Text[250];
         OGDetails: Text[2048];
     begin
-        if OGRuleSetup."OG Code" <> 'PROD-COMP-SHORTAGE' then
+        if OGRuleSetup."Code" <> 'PROD-COMP-SHORTAGE' then
             exit;
 
         OGProdOrder.SetRange(Status, OGProdOrder.Status::Released);

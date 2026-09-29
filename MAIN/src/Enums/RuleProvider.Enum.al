@@ -1,52 +1,52 @@
-enum 71003 "OG Rule Provider" implements "OG Rule Provider"
+enum 71003 "RuleProvider_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    DefaultImplementation = "OG Rule Provider" = "OG Null Rule Provider";
+    DefaultImplementation = "RuleProvider_OG_SRT" = "NullRuleProvider_OG_SRT";
     Extensible = true;
-    UnknownValueImplementation = "OG Rule Provider" = "OG Null Rule Provider";
+    UnknownValueImplementation = "RuleProvider_OG_SRT" = "NullRuleProvider_OG_SRT";
 
-    value(0; "OG None")
+    value(0; "None")
     {
         Caption = 'None';
-        Implementation = "OG Rule Provider" = "OG Null Rule Provider";
+        Implementation = "RuleProvider_OG_SRT" = "NullRuleProvider_OG_SRT";
     }
-    value(1; "OG Sales")
+    value(1; "Sales")
     {
         Caption = 'Sales';
-        Implementation = "OG Rule Provider" = "OG Sales Rules";
+        Implementation = "RuleProvider_OG_SRT" = "SalesRules_OG_SRT";
     }
-    value(2; "OG Purchasing")
+    value(2; "Purchasing")
     {
         Caption = 'Purchasing';
-        Implementation = "OG Rule Provider" = "OG Purchase Rules";
+        Implementation = "RuleProvider_OG_SRT" = "PurchaseRules_OG_SRT";
     }
-    value(3; "OG Inventory")
+    value(3; "Inventory")
     {
         Caption = 'Inventory';
-        Implementation = "OG Rule Provider" = "OG Inventory Rules";
+        Implementation = "RuleProvider_OG_SRT" = "InventoryRules_OG_SRT";
     }
-    value(4; "OG Warehouse")
+    value(4; "Warehouse")
     {
         Caption = 'Warehouse';
-        Implementation = "OG Rule Provider" = "OG Warehouse Rules";
+        Implementation = "RuleProvider_OG_SRT" = "WarehouseRules_OG_SRT";
     }
-    value(5; "OG Manufacturing")
+    value(5; "Manufacturing")
     {
         Caption = 'Manufacturing';
-        Implementation = "OG Rule Provider" = "OG Manufacturing Rules";
+        Implementation = "RuleProvider_OG_SRT" = "ManufacturingRules_OG_SRT";
     }
-    value(6; "OG System")
+    value(6; "System")
     {
         Caption = 'System';
-        Implementation = "OG Rule Provider" = "OG System Rules";
+        Implementation = "RuleProvider_OG_SRT" = "SystemRules_OG_SRT";
     }
-    value(7; "OG Approvals")
+    value(7; "Approvals")
     {
         Caption = 'Approvals';
-        Implementation = "OG Rule Provider" = "OG Approval Rules";
+        Implementation = "RuleProvider_OG_SRT" = "ApprovalRules_OG_SRT";
     }
-    value(8; "OG Setup")
+    value(8; "Setup")
     {
         Caption = 'Setup';
-        Implementation = "OG Rule Provider" = "OG Setup Rules";
+        Implementation = "RuleProvider_OG_SRT" = "SetupRules_OG_SRT";
     }
 }

@@ -1,10 +1,10 @@
-pageextension 71000 "OG Business Manager RC" extends "Business Manager Role Center"
+pageextension 71000 "BusinessManagerRC_OG_SRT" extends "Business Manager Role Center"
 {
     layout
     {
         addfirst(rolecenter)
         {
-            part(OGOperationsGuardian; "OG Role Center Cues")
+            part(OGOperationsGuardian; "RoleCenterCues_OG_SRT")
             {
                 ApplicationArea = All;
                 Caption = 'Operations Guardian';

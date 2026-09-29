@@ -1,9 +1,9 @@
-codeunit 71011 "OG Purchase Rules" implements "OG Rule Provider"
+codeunit 71011 "PurchaseRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGPurchaseHeader: Record "Purchase Header";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGCutoffDate: Date;
         OGQtyToInvoice: Decimal;
         OGDescription: Text[250];
@@ -11,10 +11,10 @@ codeunit 71011 "OG Purchase Rules" implements "OG Rule Provider"
         OGRecommendation: Text[250];
         OGDetails: Text[2048];
     begin
-        if OGRuleSetup."OG Code" <> 'PO-RECEIVED-NOT-INVOICED' then
+        if OGRuleSetup."Code" <> 'PO-RECEIVED-NOT-INVOICED' then
             exit;
 
-        OGCutoffDate := Today() - OGRuleSetup."OG Threshold Days";
+        OGCutoffDate := Today() - OGRuleSetup."Threshold Days";
 
         OGPurchaseHeader.SetRange("Document Type", OGPurchaseHeader."Document Type"::Order);
         OGPurchaseHeader.SetFilter("Order Date", '<>%1&<=%2', 0D, OGCutoffDate);

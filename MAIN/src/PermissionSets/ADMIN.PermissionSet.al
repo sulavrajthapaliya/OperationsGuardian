@@ -1,12 +1,12 @@
-permissionset 71001 "OG ADMIN"
+permissionset 71001 "ADMIN_OG_SRT"
 {
     Assignable = true;
     Caption = 'Operations Guardian Administrator';
-    IncludedPermissionSets = "OG USER";
+    IncludedPermissionSets = "USER_OG_SRT";
 
     Permissions =
-        tabledata "OG Cue" = RIMD,
-        tabledata "OG Exception" = RIMD,
-        tabledata "OG Rule Setup" = RIMD,
-        codeunit "OG Rule Setup Mgt." = X;
+        tabledata "Cue_OG_SRT" = RIMD,
+        tabledata "Exception_OG_SRT" = RIMD,
+        tabledata "RuleSetup_OG_SRT" = RIMD,
+        codeunit "RuleSetupMgt_OG_SRT" = X;
 }

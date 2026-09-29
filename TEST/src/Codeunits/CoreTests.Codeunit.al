@@ -6,8 +6,8 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGDefaultsCreateFifteenRules()
     var
-        OGRuleSetup: Record "OG Rule Setup";
-        OGRuleSetupMgt: Codeunit "OG Rule Setup Mgt.";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGRuleSetupMgt: Codeunit "RuleSetupMgt_OG_SRT";
     begin
         OGRuleSetup.DeleteAll();
 
@@ -21,8 +21,8 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGEnsureDefaultsPreservesExistingConfiguration()
     var
-        OGRuleSetup: Record "OG Rule Setup";
-        OGRuleSetupMgt: Codeunit "OG Rule Setup Mgt.";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGRuleSetupMgt: Codeunit "RuleSetupMgt_OG_SRT";
     begin
         OGRuleSetup.DeleteAll();
         OGRuleSetupMgt.OGEnsureDefaults();
@@ -40,16 +40,16 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGUpsertUsesRuleAndFingerprintAsUniqueIdentity()
     var
-        OGException: Record "OG Exception";
-        OGRuleSetup: Record "OG Rule Setup";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGException: Record "Exception_OG_SRT";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGRunAt: DateTime;
         OGEmptyGuid: Guid;
         OGRunId: Guid;
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
-        OGInsertTestRule(OGRuleSetup, 'OGTEST-UPSERT', "OG Rule Provider"::"OG None");
+        OGInsertTestRule(OGRuleSetup, 'OGTEST-UPSERT', "RuleProvider_OG_SRT"::"OG None");
 
         OGRunId := CreateGuid();
         OGRunAt := CurrentDateTime();
@@ -68,15 +68,15 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGFailedRuleRollsBackAndDoesNotStopFollowingRule()
     var
-        OGException: Record "OG Exception";
-        OGRuleSetup: Record "OG Rule Setup";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGException: Record "Exception_OG_SRT";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
 
-        OGInsertTestRule(OGRuleSetup, 'A-FAIL', "OG Rule Provider"::"OG Test Failure");
-        OGInsertTestRule(OGRuleSetup, 'Z-SUCCESS', "OG Rule Provider"::"OG None");
+        OGInsertTestRule(OGRuleSetup, 'A-FAIL', "RuleProvider_OG_SRT"::"OG Test Failure");
+        OGInsertTestRule(OGRuleSetup, 'Z-SUCCESS', "RuleProvider_OG_SRT"::"OG None");
 
         OGExceptionEngine.OGRunAll();
 
@@ -96,15 +96,15 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGSuccessfulEmptyScanResolvesPreviousException()
     var
-        OGException: Record "OG Exception";
-        OGRuleSetup: Record "OG Rule Setup";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGException: Record "Exception_OG_SRT";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGEmptyGuid: Guid;
         OGOldRunId: Guid;
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
-        OGInsertTestRule(OGRuleSetup, 'OGTEST-RESOLVE', "OG Rule Provider"::"OG None");
+        OGInsertTestRule(OGRuleSetup, 'OGTEST-RESOLVE', "RuleProvider_OG_SRT"::"OG None");
 
         OGOldRunId := CreateGuid();
         Clear(OGEmptyGuid);
@@ -122,16 +122,16 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGNumberSeriesWarningCreatesException()
     var
+        OGException: Record "Exception_OG_SRT";
         OGNoSeries: Record "No. Series";
         OGNoSeriesLine: Record "No. Series Line";
-        OGException: Record "OG Exception";
-        OGRuleSetup: Record "OG Rule Setup";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGSeriesCode: Code[20];
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
-        OGInsertTestRule(OGRuleSetup, 'NO-SERIES-EXHAUSTION', "OG Rule Provider"::"OG System");
+        OGInsertTestRule(OGRuleSetup, 'NO-SERIES-EXHAUSTION', "RuleProvider_OG_SRT"::"OG System");
 
         OGSeriesCode := OGGetUniqueSeriesCode();
         OGNoSeries.Init();
@@ -163,14 +163,14 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGMissingSalesSetupFieldCreatesActionableException()
     var
-        OGException: Record "OG Exception";
-        OGRuleSetup: Record "OG Rule Setup";
+        OGException: Record "Exception_OG_SRT";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
         OGSalesSetup: Record "Sales & Receivables Setup";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
-        OGInsertTestRule(OGRuleSetup, 'SALES-SETUP-INCOMPLETE', "OG Rule Provider"::"OG Setup");
+        OGInsertTestRule(OGRuleSetup, 'SALES-SETUP-INCOMPLETE', "RuleProvider_OG_SRT"::"OG Setup");
 
         if not OGSalesSetup.Get() then begin
             OGSalesSetup.Init();
@@ -192,15 +192,15 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGMissingGeneralPostingAccountCreatesCombinationException()
     var
-        OGException: Record "OG Exception";
+        OGException: Record "Exception_OG_SRT";
         OGGeneralPostingSetup: Record "General Posting Setup";
-        OGRuleSetup: Record "OG Rule Setup";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGFingerprint: Text[250];
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
-        OGInsertTestRule(OGRuleSetup, 'GEN-POSTING-SETUP-INCOMPLETE', "OG Rule Provider"::"OG Setup");
+        OGInsertTestRule(OGRuleSetup, 'GEN-POSTING-SETUP-INCOMPLETE', "RuleProvider_OG_SRT"::"OG Setup");
 
         if not OGGeneralPostingSetup.FindFirst() then begin
             OGGeneralPostingSetup.Init();
@@ -223,15 +223,15 @@ codeunit 71101 "OG Core Tests"
     [Test]
     procedure OGMissingInventoryPostingAccountCreatesCombinationException()
     var
-        OGException: Record "OG Exception";
+        OGException: Record "Exception_OG_SRT";
         OGInventoryPostingSetup: Record "Inventory Posting Setup";
-        OGRuleSetup: Record "OG Rule Setup";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGRuleSetup: Record "RuleSetup_OG_SRT";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGFingerprint: Text[250];
     begin
         OGRuleSetup.DeleteAll();
         OGException.DeleteAll();
-        OGInsertTestRule(OGRuleSetup, 'INVT-POSTING-SETUP-INCOMPLETE', "OG Rule Provider"::"OG Setup");
+        OGInsertTestRule(OGRuleSetup, 'INVT-POSTING-SETUP-INCOMPLETE', "RuleProvider_OG_SRT"::"OG Setup");
 
         if not OGInventoryPostingSetup.FindFirst() then begin
             OGInventoryPostingSetup.Init();
@@ -251,13 +251,13 @@ codeunit 71101 "OG Core Tests"
         OGAssertTrue(not IsNullGuid(OGException."OG Source SystemId"), 'Inventory posting exception should link to the setup combination.');
     end;
 
-    local procedure OGInsertTestRule(var OGRuleSetup: Record "OG Rule Setup"; OGCode: Code[50]; OGProvider: Enum "OG Rule Provider")
+    local procedure OGInsertTestRule(var OGRuleSetup: Record "RuleSetup_OG_SRT"; OGCode: Code[50]; OGProvider: Enum "RuleProvider_OG_SRT")
     begin
         OGRuleSetup.Init();
         OGRuleSetup."OG Code" := OGCode;
         OGRuleSetup."OG Description" := CopyStr('Automated test rule ' + OGCode, 1, MaxStrLen(OGRuleSetup."OG Description"));
-        OGRuleSetup."OG Area" := "OG Exception Area"::"OG System";
-        OGRuleSetup."OG Severity" := "OG Exception Severity"::"OG Warning";
+        OGRuleSetup."OG Area" := "ExceptionArea_OG_SRT"::"OG System";
+        OGRuleSetup."OG Severity" := "ExceptionSeverity_OG_SRT"::"OG Warning";
         OGRuleSetup."OG Enabled" := true;
         OGRuleSetup."OG Provider" := OGProvider;
         OGRuleSetup.Insert();

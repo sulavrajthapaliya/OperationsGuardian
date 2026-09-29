@@ -1,8 +1,7 @@
 {
   "folders": [
     {
-      "path": "DOCS",
-      "name": "DOCS"
+      "path": "."
     },
     {
       "name": "MAIN",
@@ -14,18 +13,17 @@
     }
   ],
   "settings": {
-    "CRS.ObjectNamePrefix": "OG",
+    "CRS.ObjectNameSuffix": "_OG_SRT",
     "CRS.OnSaveAlFileAction": "Rename",
     "CRS.DisableDefaultAlSnippets": true,
     "CRS.RenameWithGit": true,
     "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
     "CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
     "CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
-    "CRS.RemovePrefixFromFilename": true,
+    "CRS.RemoveSuffixFromFilename": true,
     "CRS.RemoveUnderscoreFromFilename": true,
     "al.packageCachePath": ".alpackages",
     "al.enableCodeAnalysis": true,
-    "al.ruleSetPath": "./al.ruleset.json",
     "al.codeAnalyzers": [
       "${CodeCop}",
       "${PerTenantExtensionCop}"
@@ -67,7 +65,7 @@
     "NAB.GenerateTooltipDocsWithExternalDocs": false,
     "NAB.CreateTocFilesForDocs": true,
     "NAB.documentation.output.indexFile": true,
-    "NAB.documentation.yamlTitle.Prefix": " | {appName}",
+    "NAB.documentation.yamlTitle.suffix": " | {appName}",
     "NAB.IncludeTablesAndFieldsInDocs": false,
     "NAB.CreateUidForDocs": false,
     "cSpell.words": [
@@ -85,25 +83,24 @@
       "release/*/*/*"
     ],
     "gitlens.codeLens.enabled": false,
-    "gitlens.statusBar.enabled": false,
-    "powershell.cwd": "MAIN"
+    "gitlens.statusBar.enabled": false
   },
   "launch": {
     "version": "0.2.0",
     "configurations": [
-      {
-        "name": "Microsoft cloud sandbox",
-        "request": "launch",
-        "type": "al",
-        "environmentType": "Sandbox",
-        "environmentName": "ssmwms",
-        "tenant": "176f2e35-2e80-442e-9e07-71dcb031a58a",
-        "startupObjectType": "Page",
-        "breakOnError": "All",
-        "launchBrowser": true,
-        "enableLongRunningSqlStatements": true,
-        "enableSqlInformationDebugger": true,
-        "schemaUpdateMode": "ForceSync"
+        {
+          "name": "SRT CDX Sandbox-DEV",
+          "request": "launch",
+          "type": "al",
+          "environmentType": "Sandbox",
+          "environmentName": "Sandbox-DEV",
+          "tenant":"44efd422-77aa-42d1-a06a-a3024fd03588",
+          "startupObjectType": "Page",
+          "breakOnError": "All",
+          "launchBrowser": true,
+          "enableLongRunningSqlStatements": true,
+          "enableSqlInformationDebugger": true,
+          "schemaUpdateMode": "ForceSync"
       },
       {
         "name": "SRT cloud sandbox",

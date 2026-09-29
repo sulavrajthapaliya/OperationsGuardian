@@ -1,10 +1,10 @@
-codeunit 71008 "OG Rule Error Writer"
+codeunit 71008 "RuleErrorWriter_OG_SRT"
 {
-    TableNo = "OG Rule Setup";
+    TableNo = "RuleSetup_OG_SRT";
 
     trigger OnRun()
     begin
-        Rec."OG Last Error" := CopyStr(OGErrorText, 1, MaxStrLen(Rec."OG Last Error"));
+        Rec."Last Error" := CopyStr(OGErrorText, 1, MaxStrLen(Rec."Last Error"));
         Rec.Modify();
     end;
 

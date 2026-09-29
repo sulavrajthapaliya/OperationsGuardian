@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/AL-Go-Actions/v9.0/.Modules/settings.schema.json",
+  "type": "PTE",
+  "templateUrl": "https://github.com/microsoft/AL-Go-AppSource@main",
+  "country": "nz",
+  "CICDPushBranches": [
+    "main",
+    "release/*"
+  ],
+  "CICDPullRequestBranches": [
+    "main",
+    "release/*"
+  ],
+  "versioningStrategy": 3,
+  "incrementalBuilds": {
+    "onPush": false,
+    "onPull_Request": false,
+    "onSchedule": false,
+    "retentionDays": 30,
+    "mode": "modifiedApps"
+  },
+  "DeployToSandbox-DEV": {
+    "EnvironmentType": "SaaS",
+    "EnvironmentName": "Sandbox-Dev",
+    "Branches": ["main"],
+    "SyncMode": "Add",
+    "ContinuousDeployment": true
+  },
+  "deliverToAppSource": {
+    "mainAppFolder": "",
+    "productId": "",
+    "continuousDelivery": true,
+    "includeDependencies": []
+  },
+  "assignPremiumPlan": false,
+  "enableCodeCop": true,
+  "keyVaultCodesignCertificateName": "",
+  "templateSha": "04f60f74bafd03df919955477c3dd27964fec65c"
+}

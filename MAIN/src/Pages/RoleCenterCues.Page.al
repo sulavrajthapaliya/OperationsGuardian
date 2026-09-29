@@ -1,10 +1,10 @@
-page 71003 "OG Role Center Cues"
+page 71003 "RoleCenterCues_OG_SRT"
 {
     ApplicationArea = All;
     Caption = 'Operations Guardian';
     PageType = CardPart;
     RefreshOnActivate = true;
-    SourceTable = "OG Cue";
+    SourceTable = "Cue_OG_SRT";
 
     layout
     {
@@ -14,28 +14,28 @@ page 71003 "OG Role Center Cues"
             {
                 Caption = 'Operations Guardian';
 
-                field(OGCriticalExceptions; Rec."OG Critical Exceptions")
+                field(OGCriticalExceptions; Rec."Critical Exceptions")
                 {
                     ApplicationArea = All;
-                    DrillDownPageId = "OG Exception Inbox";
+                    DrillDownPageId = "ExceptionInbox_OG_SRT";
                     ToolTip = 'Shows the number of open critical Operations Guardian exceptions.';
                 }
-                field(OGWarningExceptions; Rec."OG Warning Exceptions")
+                field(OGWarningExceptions; Rec."Warning Exceptions")
                 {
                     ApplicationArea = All;
-                    DrillDownPageId = "OG Exception Inbox";
+                    DrillDownPageId = "ExceptionInbox_OG_SRT";
                     ToolTip = 'Shows the number of open warning Operations Guardian exceptions.';
                 }
-                field(OGOpenExceptions; Rec."OG Open Exceptions")
+                field(OGOpenExceptions; Rec."Open Exceptions")
                 {
                     ApplicationArea = All;
-                    DrillDownPageId = "OG Exception Inbox";
+                    DrillDownPageId = "ExceptionInbox_OG_SRT";
                     ToolTip = 'Shows the total number of open Operations Guardian exceptions.';
                 }
-                field(OGIgnoredExceptions; Rec."OG Ignored Exceptions")
+                field(OGIgnoredExceptions; Rec."Ignored Exceptions")
                 {
                     ApplicationArea = All;
-                    DrillDownPageId = "OG Exception Inbox";
+                    DrillDownPageId = "ExceptionInbox_OG_SRT";
                     ToolTip = 'Shows the number of ignored Operations Guardian exceptions.';
                 }
             }
@@ -44,8 +44,8 @@ page 71003 "OG Role Center Cues"
 
     trigger OnOpenPage()
     var
-        OGNotificationMgt: Codeunit "OG Notification Mgt.";
-        OGRuleSetupMgt: Codeunit "OG Rule Setup Mgt.";
+        OGNotificationMgt: Codeunit "NotificationMgt_OG_SRT";
+        OGRuleSetupMgt: Codeunit "RuleSetupMgt_OG_SRT";
     begin
         OGRuleSetupMgt.OGEnsureCueRecord();
         Rec.Get(1);

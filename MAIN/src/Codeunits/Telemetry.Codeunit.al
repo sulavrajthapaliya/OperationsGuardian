@@ -1,4 +1,4 @@
-codeunit 71006 "OG Telemetry"
+codeunit 71006 "Telemetry_OG_SRT"
 {
     procedure OGLogScanStarted(OGRunId: Guid)
     var
@@ -16,7 +16,7 @@ codeunit 71006 "OG Telemetry"
             OGDimensions);
     end;
 
-    procedure OGLogRuleCompleted(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGDuration: Duration; OGDetectedCount: Integer)
+    procedure OGLogRuleCompleted(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGDuration: Duration; OGDetectedCount: Integer)
     var
         OGDimensions: Dictionary of [Text, Text];
     begin
@@ -34,7 +34,7 @@ codeunit 71006 "OG Telemetry"
             OGDimensions);
     end;
 
-    procedure OGLogRuleFailed(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGDuration: Duration)
+    procedure OGLogRuleFailed(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGDuration: Duration)
     var
         OGDimensions: Dictionary of [Text, Text];
     begin
@@ -74,12 +74,12 @@ codeunit 71006 "OG Telemetry"
             OGDimensions);
     end;
 
-    local procedure OGAddCommonRuleDimensions(var OGDimensions: Dictionary of [Text, Text]; OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid)
+    local procedure OGAddCommonRuleDimensions(var OGDimensions: Dictionary of [Text, Text]; OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid)
     begin
         OGDimensions.Add('runId', Format(OGRunId));
-        OGDimensions.Add('ruleCode', Format(OGRuleSetup."OG Code"));
-        OGDimensions.Add('provider', Format(OGRuleSetup."OG Provider"));
-        OGDimensions.Add('severity', Format(OGRuleSetup."OG Severity"));
-        OGDimensions.Add('area', Format(OGRuleSetup."OG Area"));
+        OGDimensions.Add('ruleCode', Format(OGRuleSetup."Code"));
+        OGDimensions.Add('provider', Format(OGRuleSetup."Provider"));
+        OGDimensions.Add('severity', Format(OGRuleSetup."Severity"));
+        OGDimensions.Add('area', Format(OGRuleSetup."Area"));
     end;
 }

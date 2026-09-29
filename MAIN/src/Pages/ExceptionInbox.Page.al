@@ -1,11 +1,11 @@
-page 71000 "OG Exception Inbox"
+page 71000 "ExceptionInbox_OG_SRT"
 {
     ApplicationArea = All;
     Caption = 'Operations Guardian';
     Editable = false;
     PageType = List;
-    SourceTable = "OG Exception";
-    SourceTableView = sorting("OG Status", "OG Severity", "OG Last Detected At") order(descending);
+    SourceTable = "Exception_OG_SRT";
+    SourceTableView = sorting("Status", "Severity", "Last Detected At") order(descending);
     UsageCategory = Lists;
 
     layout
@@ -14,52 +14,52 @@ page 71000 "OG Exception Inbox"
         {
             repeater(OGExceptions)
             {
-                field(OGSeverity; Rec."OG Severity")
+                field(OGSeverity; Rec."Severity")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the severity of the exception.';
                 }
-                field(OGStatus; Rec."OG Status")
+                field(OGStatus; Rec."Status")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies whether the exception is open, ignored, or resolved.';
                 }
-                field(OGArea; Rec."OG Area")
+                field(OGArea; Rec."Area")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the functional area where the exception was detected.';
                 }
-                field(OGDescription; Rec."OG Description")
+                field(OGDescription; Rec."Description")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Describes the detected exception.';
                 }
-                field(OGSourceNo; Rec."OG Source No.")
+                field(OGSourceNo; Rec."Source No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the source document or record number.';
                 }
-                field(OGRuleCode; Rec."OG Rule Code")
+                field(OGRuleCode; Rec."Rule Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the rule that detected the exception.';
                 }
-                field(OGDetectedAt; Rec."OG Detected At")
+                field(OGDetectedAt; Rec."Detected At")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies when the exception was first detected.';
                 }
-                field(OGLastDetectedAt; Rec."OG Last Detected At")
+                field(OGLastDetectedAt; Rec."Last Detected At")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies when the exception was most recently detected.';
                 }
-                field(OGIgnoredUntil; Rec."OG Ignored Until")
+                field(OGIgnoredUntil; Rec."Ignored Until")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies when an ignored exception becomes active again.';
                 }
-                field(OGSeenCount; Rec."OG Seen Count")
+                field(OGSeenCount; Rec."Seen Count")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies how many scans have detected this exception.';
@@ -69,10 +69,10 @@ page 71000 "OG Exception Inbox"
 
         area(FactBoxes)
         {
-            part(OGExceptionFactbox; "OG Exception FactBox")
+            part(OGExceptionFactbox; "ExceptionFactBox_OG_SRT")
             {
                 ApplicationArea = All;
-                SubPageLink = "OG Entry No." = field("OG Entry No.");
+                SubPageLink = "Entry No." = field("Entry No.");
             }
         }
     }
@@ -90,8 +90,8 @@ page 71000 "OG Exception Inbox"
 
                 trigger OnAction()
                 var
-                    OGExceptionEngine: Codeunit "OG Exception Engine";
-                    OGNotificationMgt: Codeunit "OG Notification Mgt.";
+                    OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
+                    OGNotificationMgt: Codeunit "NotificationMgt_OG_SRT";
                 begin
                     OGExceptionEngine.OGRunAll();
                     OGNotificationMgt.OGNotifyCriticalExceptions();
@@ -107,7 +107,7 @@ page 71000 "OG Exception Inbox"
 
                 trigger OnAction()
                 var
-                    OGExceptionEngine: Codeunit "OG Exception Engine";
+                    OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
                 begin
                     OGExceptionEngine.OGOpenSource(Rec);
                 end;
@@ -121,7 +121,7 @@ page 71000 "OG Exception Inbox"
 
                 trigger OnAction()
                 var
-                    OGExceptionEngine: Codeunit "OG Exception Engine";
+                    OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
                 begin
                     OGExceptionEngine.OGIgnoreForDays(Rec, 1);
                     CurrPage.Update(false);
@@ -136,7 +136,7 @@ page 71000 "OG Exception Inbox"
 
                 trigger OnAction()
                 var
-                    OGExceptionEngine: Codeunit "OG Exception Engine";
+                    OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
                 begin
                     OGExceptionEngine.OGIgnoreForDays(Rec, 7);
                     CurrPage.Update(false);
@@ -150,7 +150,7 @@ page 71000 "OG Exception Inbox"
 
                 trigger OnAction()
                 var
-                    OGExceptionEngine: Codeunit "OG Exception Engine";
+                    OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
                 begin
                     OGExceptionEngine.OGReopen(Rec);
                     CurrPage.Update(false);
@@ -161,7 +161,7 @@ page 71000 "OG Exception Inbox"
                 ApplicationArea = All;
                 Caption = 'Rules';
                 Image = Setup;
-                RunObject = page "OG Rule Setup";
+                RunObject = page "RuleSetup_OG_SRT";
                 ToolTip = 'Opens Operations Guardian rule setup.';
             }
         }

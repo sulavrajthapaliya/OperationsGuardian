@@ -1,40 +1,40 @@
-enum 71000 "OG Exception Area"
+enum 71000 "ExceptionArea_OG_SRT"
 {
     Extensible = true;
 
-    value(0; "OG General")
+    value(0; "General")
     {
         Caption = 'General';
     }
-    value(1; "OG Sales")
+    value(1; "Sales")
     {
         Caption = 'Sales';
     }
-    value(2; "OG Purchasing")
+    value(2; "Purchasing")
     {
         Caption = 'Purchasing';
     }
-    value(3; "OG Inventory")
+    value(3; "Inventory")
     {
         Caption = 'Inventory';
     }
-    value(4; "OG Warehouse")
+    value(4; "Warehouse")
     {
         Caption = 'Warehouse';
     }
-    value(5; "OG Manufacturing")
+    value(5; "Manufacturing")
     {
         Caption = 'Manufacturing';
     }
-    value(6; "OG System")
+    value(6; "System")
     {
         Caption = 'System';
     }
-    value(7; "OG Approvals")
+    value(7; "Approvals")
     {
         Caption = 'Approvals';
     }
-    value(8; "OG Setup")
+    value(8; "Setup")
     {
         Caption = 'Setup';
     }

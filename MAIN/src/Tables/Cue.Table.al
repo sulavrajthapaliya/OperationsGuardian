@@ -1,36 +1,36 @@
-table 71002 "OG Cue"
+table 71002 "Cue_OG_SRT"
 {
     Caption = 'Operations Guardian Cue';
     DataClassification = SystemMetadata;
 
     fields
     {
-        field(1; "OG Primary Key"; Integer)
+        field(1; "Primary Key"; Integer)
         {
             Caption = 'Primary Key';
             DataClassification = SystemMetadata;
         }
-        field(2; "OG Open Exceptions"; Integer)
+        field(2; "Open Exceptions"; Integer)
         {
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open")));
+            CalcFormula = count("Exception_OG_SRT" where(Status = const("Open")));
             Caption = 'Open Exceptions';
             FieldClass = FlowField;
         }
-        field(3; "OG Critical Exceptions"; Integer)
+        field(3; "Critical Exceptions"; Integer)
         {
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open"), "OG Severity" = const("OG Critical")));
+            CalcFormula = count("Exception_OG_SRT" where(Status = const("Open"), "Severity" = const("Critical")));
             Caption = 'Critical Exceptions';
             FieldClass = FlowField;
         }
-        field(4; "OG Warning Exceptions"; Integer)
+        field(4; "Warning Exceptions"; Integer)
         {
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Open"), "OG Severity" = const("OG Warning")));
+            CalcFormula = count("Exception_OG_SRT" where(Status = const("Open"), "Severity" = const("Warning")));
             Caption = 'Warning Exceptions';
             FieldClass = FlowField;
         }
-        field(5; "OG Ignored Exceptions"; Integer)
+        field(5; "Ignored Exceptions"; Integer)
         {
-            CalcFormula = count("OG Exception" where("OG Status" = const("OG Ignored")));
+            CalcFormula = count("Exception_OG_SRT" where(Status = const("Ignored")));
             Caption = 'Ignored Exceptions';
             FieldClass = FlowField;
         }
@@ -38,7 +38,7 @@ table 71002 "OG Cue"
 
     keys
     {
-        key(OGPK; "OG Primary Key")
+        key(PK; "Primary Key")
         {
             Clustered = true;
         }

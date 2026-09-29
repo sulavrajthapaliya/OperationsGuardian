@@ -1,8 +1,8 @@
-codeunit 71015 "OG System Rules" implements "OG Rule Provider"
+codeunit 71015 "SystemRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     begin
-        case OGRuleSetup."OG Code" of
+        case OGRuleSetup."Code" of
             'JOB-QUEUE-FAILED':
                 OGEvaluateJobQueueFailures(OGRuleSetup, OGRunId, OGRunAt);
             'NO-SERIES-EXHAUSTION':
@@ -10,10 +10,10 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
         end;
     end;
 
-    local procedure OGEvaluateJobQueueFailures(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateJobQueueFailures(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGJobQueueEntry: Record "Job Queue Entry";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGSourceNo: Code[50];
         OGDescription: Text[250];
         OGFingerprint: Text[250];
@@ -53,11 +53,11 @@ codeunit 71015 "OG System Rules" implements "OG Rule Provider"
         until OGJobQueueEntry.Next() = 0;
     end;
 
-    local procedure OGEvaluateNoSeriesExhaustion(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateNoSeriesExhaustion(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGNoSeries: Record "No. Series";
         OGNoSeriesLine: Record "No. Series Line";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGLastNoUsed: Code[20];
         OGNoSeriesImplementation: Interface "No. Series - Single";
         OGDescription: Text[250];

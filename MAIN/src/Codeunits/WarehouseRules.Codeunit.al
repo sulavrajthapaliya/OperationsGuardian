@@ -1,19 +1,19 @@
-codeunit 71013 "OG Warehouse Rules" implements "OG Rule Provider"
+codeunit 71013 "WarehouseRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGWhseShipmentHeader: Record "Warehouse Shipment Header";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGCutoffDateTime: DateTime;
         OGDescription: Text[250];
         OGFingerprint: Text[250];
         OGRecommendation: Text[250];
         OGDetails: Text[2048];
     begin
-        if OGRuleSetup."OG Code" <> 'WHSE-SHIPMENT-STUCK' then
+        if OGRuleSetup."Code" <> 'WHSE-SHIPMENT-STUCK' then
             exit;
 
-        OGCutoffDateTime := CreateDateTime(Today() - OGRuleSetup."OG Threshold Days", 000000T);
+        OGCutoffDateTime := CreateDateTime(Today() - OGRuleSetup."Threshold Days", 000000T);
         OGWhseShipmentHeader.SetFilter(SystemCreatedAt, '<=%1', OGCutoffDateTime);
 
         if not OGWhseShipmentHeader.FindSet() then

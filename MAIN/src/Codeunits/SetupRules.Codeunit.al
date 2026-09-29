@@ -1,8 +1,8 @@
-codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
+codeunit 71017 "SetupRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     begin
-        case OGRuleSetup."OG Code" of
+        case OGRuleSetup."Code" of
             'COMPANY-INFO-INCOMPLETE':
                 OGEvaluateCompanyInformation(OGRuleSetup, OGRunId, OGRunAt);
             'GL-SETUP-INCOMPLETE':
@@ -20,7 +20,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         end;
     end;
 
-    local procedure OGEvaluateCompanyInformation(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateCompanyInformation(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGCompanyInformation: Record "Company Information";
         OGMissingFields: Text;
@@ -39,7 +39,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGCreateIncompleteSetupException(OGRuleSetup, 'COMPANY', Database::"Company Information", OGCompanyInformation.SystemId, CompanyInformationLbl, OGMissingFields, OGRunId, OGRunAt);
     end;
 
-    local procedure OGEvaluateGeneralLedgerSetup(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateGeneralLedgerSetup(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGGeneralLedgerSetup: Record "General Ledger Setup";
         OGMissingFields: Text;
@@ -54,7 +54,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGCreateIncompleteSetupException(OGRuleSetup, 'GENERAL-LEDGER', Database::"General Ledger Setup", OGGeneralLedgerSetup.SystemId, GeneralLedgerSetupLbl, OGMissingFields, OGRunId, OGRunAt);
     end;
 
-    local procedure OGEvaluateSalesSetup(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateSalesSetup(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGSalesSetup: Record "Sales & Receivables Setup";
         OGMissingFields: Text;
@@ -75,7 +75,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGCreateIncompleteSetupException(OGRuleSetup, 'SALES', Database::"Sales & Receivables Setup", OGSalesSetup.SystemId, SalesSetupLbl, OGMissingFields, OGRunId, OGRunAt);
     end;
 
-    local procedure OGEvaluatePurchaseSetup(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluatePurchaseSetup(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGPurchaseSetup: Record "Purchases & Payables Setup";
         OGMissingFields: Text;
@@ -96,7 +96,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGCreateIncompleteSetupException(OGRuleSetup, 'PURCHASE', Database::"Purchases & Payables Setup", OGPurchaseSetup.SystemId, PurchaseSetupLbl, OGMissingFields, OGRunId, OGRunAt);
     end;
 
-    local procedure OGEvaluateInventorySetup(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateInventorySetup(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGInventorySetup: Record "Inventory Setup";
         OGMissingFields: Text;
@@ -114,7 +114,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGCreateIncompleteSetupException(OGRuleSetup, 'INVENTORY', Database::"Inventory Setup", OGInventorySetup.SystemId, InventorySetupLbl, OGMissingFields, OGRunId, OGRunAt);
     end;
 
-    local procedure OGEvaluateGeneralPostingSetup(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateGeneralPostingSetup(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGGeneralPostingSetup: Record "General Posting Setup";
         OGMissingFields: Text;
@@ -142,7 +142,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         until OGGeneralPostingSetup.Next() = 0;
     end;
 
-    local procedure OGEvaluateInventoryPostingSetup(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGEvaluateInventoryPostingSetup(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGInventoryPostingSetup: Record "Inventory Posting Setup";
         OGInventorySetup: Record "Inventory Setup";
@@ -180,7 +180,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGMissingFields += OGFieldCaption;
     end;
 
-    local procedure OGCreateMissingRecordException(OGRuleSetup: Record "OG Rule Setup"; OGSetupKey: Text; OGSourceTableNo: Integer; OGSetupName: Text; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGCreateMissingRecordException(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGSetupKey: Text; OGSourceTableNo: Integer; OGSetupName: Text; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGEmptySystemId: Guid;
     begin
@@ -188,7 +188,7 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGCreateException(OGRuleSetup, OGSetupKey, OGSourceTableNo, OGEmptySystemId, OGSetupName, SetupRecordMissingLbl, OGRunId, OGRunAt);
     end;
 
-    local procedure OGCreateIncompleteSetupException(OGRuleSetup: Record "OG Rule Setup"; OGSetupKey: Text; OGSourceTableNo: Integer; OGSourceSystemId: Guid; OGSetupName: Text; OGMissingFields: Text; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGCreateIncompleteSetupException(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGSetupKey: Text; OGSourceTableNo: Integer; OGSourceSystemId: Guid; OGSetupName: Text; OGMissingFields: Text; OGRunId: Guid; OGRunAt: DateTime)
     begin
         if OGMissingFields = '' then
             exit;
@@ -196,14 +196,14 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         OGCreateException(OGRuleSetup, OGSetupKey, OGSourceTableNo, OGSourceSystemId, OGSetupName, OGMissingFields, OGRunId, OGRunAt);
     end;
 
-    local procedure OGCreateException(OGRuleSetup: Record "OG Rule Setup"; OGSetupKey: Text; OGSourceTableNo: Integer; OGSourceSystemId: Guid; OGSetupName: Text; OGMissingFields: Text; OGRunId: Guid; OGRunAt: DateTime)
+    local procedure OGCreateException(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGSetupKey: Text; OGSourceTableNo: Integer; OGSourceSystemId: Guid; OGSetupName: Text; OGMissingFields: Text; OGRunId: Guid; OGRunAt: DateTime)
     var
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
+        OGSourceNo: Code[50];
         OGDescription: Text[250];
-        OGDetails: Text[2048];
         OGFingerprint: Text[250];
         OGRecommendation: Text[250];
-        OGSourceNo: Code[50];
+        OGDetails: Text[2048];
     begin
         OGFingerprint := CopyStr(StrSubstNo(SetupFingerprintFormatLbl, OGSetupKey), 1, MaxStrLen(OGFingerprint));
         OGDescription := CopyStr(StrSubstNo(SetupDescriptionFormatLbl, OGSetupName), 1, MaxStrLen(OGDescription));
@@ -230,10 +230,10 @@ codeunit 71017 "OG Setup Rules" implements "OG Rule Provider"
         GeneralPostingSetupKeyFormatLbl: Label 'GEN-POSTING|%1|%2', Locked = true, Comment = '%1 = general business posting group, %2 = general product posting group';
         GeneralPostingSetupLbl: Label 'General Posting Setup';
         GeneralPostingSetupNameFormatLbl: Label 'General Posting Setup %1 / %2', Comment = '%1 = general business posting group, %2 = general product posting group';
-        InventorySetupLbl: Label 'Inventory Setup';
         InventoryPostingSetupKeyFormatLbl: Label 'INVT-POSTING|%1|%2', Locked = true, Comment = '%1 = location code, %2 = inventory posting group';
         InventoryPostingSetupLbl: Label 'Inventory Posting Setup';
         InventoryPostingSetupNameFormatLbl: Label 'Inventory Posting Setup %1 / %2', Comment = '%1 = location code, %2 = inventory posting group';
+        InventorySetupLbl: Label 'Inventory Setup';
         PurchaseSetupLbl: Label 'Purchases & Payables Setup';
         SalesSetupLbl: Label 'Sales & Receivables Setup';
         SetupDescriptionFormatLbl: Label '%1 is incomplete', Comment = '%1 = setup page name';

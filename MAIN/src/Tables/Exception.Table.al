@@ -1,104 +1,104 @@
-table 71000 "OG Exception"
+table 71000 "Exception_OG_SRT"
 {
     Caption = 'Operations Guardian Exception';
     DataClassification = CustomerContent;
-    DrillDownPageId = "OG Exception Inbox";
-    LookupPageId = "OG Exception Inbox";
+    DrillDownPageId = "ExceptionInbox_OG_SRT";
+    LookupPageId = "ExceptionInbox_OG_SRT";
 
     fields
     {
-        field(1; "OG Entry No."; BigInteger)
+        field(1; "Entry No."; BigInteger)
         {
             AutoIncrement = true;
             Caption = 'Entry No.';
             DataClassification = SystemMetadata;
         }
-        field(2; "OG Rule Code"; Code[50])
+        field(2; "Rule Code"; Code[50])
         {
             Caption = 'Rule Code';
             DataClassification = SystemMetadata;
         }
-        field(3; "OG Area"; Enum "OG Exception Area")
+        field(3; "Area"; Enum "ExceptionArea_OG_SRT")
         {
             Caption = 'Area';
             DataClassification = SystemMetadata;
         }
-        field(4; "OG Severity"; Enum "OG Exception Severity")
+        field(4; Severity; Enum "ExceptionSeverity_OG_SRT")
         {
             Caption = 'Severity';
             DataClassification = SystemMetadata;
         }
-        field(5; "OG Status"; Enum "OG Exception Status")
+        field(5; Status; Enum "ExceptionStatus_OG_SRT")
         {
             Caption = 'Status';
             DataClassification = SystemMetadata;
         }
-        field(6; "OG Fingerprint"; Text[250])
+        field(6; Fingerprint; Text[250])
         {
             Caption = 'Fingerprint';
             DataClassification = SystemMetadata;
         }
-        field(7; "OG Description"; Text[250])
+        field(7; Description; Text[250])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
         }
-        field(8; "OG Details"; Text[2048])
+        field(8; Details; Text[2048])
         {
             Caption = 'Details';
             DataClassification = CustomerContent;
         }
-        field(9; "OG Recommendation"; Text[250])
+        field(9; Recommendation; Text[250])
         {
             Caption = 'Recommendation';
             DataClassification = CustomerContent;
         }
-        field(10; "OG Source Table No."; Integer)
+        field(10; "Source Table No."; Integer)
         {
             Caption = 'Source Table No.';
             DataClassification = SystemMetadata;
         }
-        field(11; "OG Source SystemId"; Guid)
+        field(11; "Source SystemId"; Guid)
         {
             Caption = 'Source SystemId';
             DataClassification = SystemMetadata;
         }
-        field(12; "OG Source No."; Code[50])
+        field(12; "Source No."; Code[50])
         {
             Caption = 'Source No.';
             DataClassification = CustomerContent;
         }
-        field(13; "OG Detected At"; DateTime)
+        field(13; "Detected At"; DateTime)
         {
             Caption = 'Detected At';
             DataClassification = SystemMetadata;
         }
-        field(14; "OG Last Detected At"; DateTime)
+        field(14; "Last Detected At"; DateTime)
         {
             Caption = 'Last Detected At';
             DataClassification = SystemMetadata;
         }
-        field(15; "OG Resolved At"; DateTime)
+        field(15; "Resolved At"; DateTime)
         {
             Caption = 'Resolved At';
             DataClassification = SystemMetadata;
         }
-        field(16; "OG Ignored Until"; DateTime)
+        field(16; "Ignored Until"; DateTime)
         {
             Caption = 'Ignored Until';
             DataClassification = SystemMetadata;
         }
-        field(17; "OG Last Run Id"; Guid)
+        field(17; "Last Run Id"; Guid)
         {
             Caption = 'Last Run Id';
             DataClassification = SystemMetadata;
         }
-        field(18; "OG Company Name"; Text[30])
+        field(18; "Company Name"; Text[30])
         {
             Caption = 'Company Name';
             DataClassification = OrganizationIdentifiableInformation;
         }
-        field(19; "OG Seen Count"; Integer)
+        field(19; "Seen Count"; Integer)
         {
             Caption = 'Seen Count';
             DataClassification = SystemMetadata;
@@ -107,15 +107,15 @@ table 71000 "OG Exception"
 
     keys
     {
-        key(OGPK; "OG Entry No.")
+        key(OGPK; "Entry No.")
         {
             Clustered = true;
         }
-        key(OGRuleFingerprint; "OG Rule Code", "OG Fingerprint")
+        key(OGRuleFingerprint; "Rule Code", "Fingerprint")
         {
             Unique = true;
         }
-        key(OGStatusSeverityDate; "OG Status", "OG Severity", "OG Last Detected At")
+        key(OGStatusSeverityDate; "Status", "Severity", "Last Detected At")
         {
         }
     }

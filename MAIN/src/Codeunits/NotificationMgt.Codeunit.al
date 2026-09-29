@@ -1,33 +1,33 @@
-codeunit 71005 "OG Notification Mgt."
+codeunit 71005 "NotificationMgt_OG_SRT"
 {
     procedure OGNotifyCriticalExceptions()
     var
-        OGException: Record "OG Exception";
+        OGException: Record "Exception_OG_SRT";
         OGCriticalNotification: Notification;
         OGCriticalCount: Integer;
     begin
         if not GuiAllowed() then
             exit;
 
-        OGException.SetRange("OG Status", OGException."OG Status"::"OG Open");
-        OGException.SetRange("OG Severity", OGException."OG Severity"::"OG Critical");
+        OGException.SetRange("Status", OGException."Status"::"Open");
+        OGException.SetRange("Severity", OGException."Severity"::"Critical");
         OGCriticalCount := OGException.Count();
         if OGCriticalCount = 0 then
             exit;
 
         OGCriticalNotification.Message := StrSubstNo(OGCriticalExceptionsMsg, OGCriticalCount);
         OGCriticalNotification.Scope := NotificationScope::LocalScope;
-        OGCriticalNotification.AddAction(OGViewCriticalActionLbl, Codeunit::"OG Notification Mgt.", 'OGOpenCriticalExceptions', OGViewCriticalActionToolTipLbl);
+        OGCriticalNotification.AddAction(OGViewCriticalActionLbl, Codeunit::"NotificationMgt_OG_SRT", 'OGOpenCriticalExceptions', OGViewCriticalActionToolTipLbl);
         OGCriticalNotification.Send();
     end;
 
     procedure OGOpenCriticalExceptions(OGNotification: Notification)
     var
-        OGException: Record "OG Exception";
+        OGException: Record "Exception_OG_SRT";
     begin
-        OGException.SetRange("OG Status", OGException."OG Status"::"OG Open");
-        OGException.SetRange("OG Severity", OGException."OG Severity"::"OG Critical");
-        Page.Run(Page::"OG Exception Inbox", OGException);
+        OGException.SetRange("Status", OGException."Status"::"Open");
+        OGException.SetRange("Severity", OGException."Severity"::"Critical");
+        Page.Run(Page::"ExceptionInbox_OG_SRT", OGException);
     end;
 
     var

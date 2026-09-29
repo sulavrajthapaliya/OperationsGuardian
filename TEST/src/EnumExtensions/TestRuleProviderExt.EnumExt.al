@@ -1,8 +1,8 @@
-enumextension 71100 "OG Test Rule Provider Ext" extends "OG Rule Provider"
+enumextension 71100 "OG Test Rule Provider Ext" extends "RuleProvider_OG_SRT"
 {
     value(71100; "OG Test Failure")
     {
         Caption = 'Test Failure';
-        Implementation = "OG Rule Provider" = "OG Test Failure Provider";
+        Implementation = "RuleProvider_OG_SRT" = "OG Test Failure Provider";
     }
 }

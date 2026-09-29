@@ -1,9 +1,9 @@
-codeunit 71010 "OG Sales Rules" implements "OG Rule Provider"
+codeunit 71010 "SalesRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGSalesHeader: Record "Sales Header";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGCutoffDate: Date;
         OGOutstandingQty: Decimal;
         OGDescription: Text[250];
@@ -11,10 +11,10 @@ codeunit 71010 "OG Sales Rules" implements "OG Rule Provider"
         OGRecommendation: Text[250];
         OGDetails: Text[2048];
     begin
-        if OGRuleSetup."OG Code" <> 'SALES-OVERDUE' then
+        if OGRuleSetup."Code" <> 'SALES-OVERDUE' then
             exit;
 
-        OGCutoffDate := Today() - OGRuleSetup."OG Threshold Days";
+        OGCutoffDate := Today() - OGRuleSetup."Threshold Days";
 
         OGSalesHeader.SetRange("Document Type", OGSalesHeader."Document Type"::Order);
         OGSalesHeader.SetRange(Status, OGSalesHeader.Status::Released);

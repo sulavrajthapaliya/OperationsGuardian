@@ -1,10 +1,10 @@
-codeunit 71003 "OG Scanner Job"
+codeunit 71003 "ScannerJob_OG_SRT"
 {
     TableNo = "Job Queue Entry";
 
     trigger OnRun()
     var
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
     begin
         OGExceptionEngine.OGRunAll();
     end;

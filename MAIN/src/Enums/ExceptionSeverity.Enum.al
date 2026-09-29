@@ -1,16 +1,16 @@
-enum 71001 "OG Exception Severity"
+enum 71001 "ExceptionSeverity_OG_SRT"
 {
     Extensible = true;
 
-    value(0; "OG Info")
+    value(0; "Info")
     {
         Caption = 'Info';
     }
-    value(1; "OG Warning")
+    value(1; "Warning")
     {
         Caption = 'Warning';
     }
-    value(2; "OG Critical")
+    value(2; "Critical")
     {
         Caption = 'Critical';
     }

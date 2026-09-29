@@ -1,9 +1,9 @@
-codeunit 71016 "OG Approval Rules" implements "OG Rule Provider"
+codeunit 71016 "ApprovalRules_OG_SRT" implements "RuleProvider_OG_SRT"
 {
-    procedure OGEvaluate(OGRuleSetup: Record "OG Rule Setup"; OGRunId: Guid; OGRunAt: DateTime)
+    procedure OGEvaluate(OGRuleSetup: Record "RuleSetup_OG_SRT"; OGRunId: Guid; OGRunAt: DateTime)
     var
         OGApprovalEntry: Record "Approval Entry";
-        OGExceptionEngine: Codeunit "OG Exception Engine";
+        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
         OGSourceNo: Code[50];
         OGCutoffDateTime: DateTime;
         OGDescription: Text[250];
@@ -11,10 +11,10 @@ codeunit 71016 "OG Approval Rules" implements "OG Rule Provider"
         OGRecommendation: Text[250];
         OGDetails: Text[2048];
     begin
-        if OGRuleSetup."OG Code" <> 'APPROVAL-AGING' then
+        if OGRuleSetup."Code" <> 'APPROVAL-AGING' then
             exit;
 
-        OGCutoffDateTime := CreateDateTime(Today() - OGRuleSetup."OG Threshold Days", 000000T);
+        OGCutoffDateTime := CreateDateTime(Today() - OGRuleSetup."Threshold Days", 000000T);
 
         OGApprovalEntry.SetRange(Status, OGApprovalEntry.Status::Open);
         OGApprovalEntry.SetFilter("Date-Time Sent for Approval", '<>%1&<=%2', 0DT, OGCutoffDateTime);

@@ -1,60 +1,60 @@
-table 71001 "OG Rule Setup"
+table 71001 "RuleSetup_OG_SRT"
 {
     Caption = 'Operations Guardian Rule Setup';
     DataClassification = CustomerContent;
-    DrillDownPageId = "OG Rule Setup";
-    LookupPageId = "OG Rule Setup";
+    DrillDownPageId = "RuleSetup_OG_SRT";
+    LookupPageId = "RuleSetup_OG_SRT";
 
     fields
     {
-        field(1; "OG Code"; Code[50])
+        field(1; "Code"; Code[50])
         {
             Caption = 'Code';
             DataClassification = SystemMetadata;
         }
-        field(2; "OG Description"; Text[100])
+        field(2; Description; Text[100])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
         }
-        field(3; "OG Area"; Enum "OG Exception Area")
+        field(3; "Area"; Enum "ExceptionArea_OG_SRT")
         {
             Caption = 'Area';
             DataClassification = SystemMetadata;
         }
-        field(4; "OG Severity"; Enum "OG Exception Severity")
+        field(4; Severity; Enum "ExceptionSeverity_OG_SRT")
         {
             Caption = 'Severity';
             DataClassification = SystemMetadata;
         }
-        field(5; "OG Enabled"; Boolean)
+        field(5; Enabled; Boolean)
         {
             Caption = 'Enabled';
             DataClassification = SystemMetadata;
         }
-        field(6; "OG Provider"; Enum "OG Rule Provider")
+        field(6; Provider; Enum "RuleProvider_OG_SRT")
         {
             Caption = 'Provider';
             DataClassification = SystemMetadata;
         }
-        field(7; "OG Threshold Days"; Integer)
+        field(7; "Threshold Days"; Integer)
         {
             Caption = 'Threshold (Days)';
             DataClassification = SystemMetadata;
 
             trigger OnValidate()
             begin
-                if "OG Threshold Days" < 0 then
+                if "Threshold Days" < 0 then
                     Error(OGThresholdErr);
             end;
         }
-        field(8; "OG Last Run At"; DateTime)
+        field(8; "Last Run At"; DateTime)
         {
             Caption = 'Last Run At';
             DataClassification = SystemMetadata;
             Editable = false;
         }
-        field(9; "OG Last Error"; Text[2048])
+        field(9; "Last Error"; Text[2048])
         {
             Caption = 'Last Error';
             DataClassification = CustomerContent;
@@ -64,7 +64,7 @@ table 71001 "OG Rule Setup"
 
     keys
     {
-        key(OGPK; "OG Code")
+        key(OGPK; "Code")
         {
             Clustered = true;
         }

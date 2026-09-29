@@ -1,10 +1,10 @@
-page 71002 "OG Rule Setup"
+page 71002 "RuleSetup_OG_SRT"
 {
     ApplicationArea = All;
     Caption = 'Operations Guardian Rules';
     DelayedInsert = true;
     PageType = List;
-    SourceTable = "OG Rule Setup";
+    SourceTable = "RuleSetup_OG_SRT";
     UsageCategory = Administration;
 
     layout
@@ -13,47 +13,47 @@ page 71002 "OG Rule Setup"
         {
             repeater(OGRules)
             {
-                field(OGCode; Rec."OG Code")
+                field(OGCode; Rec."Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the unique rule code.';
                 }
-                field(OGDescription; Rec."OG Description")
+                field(OGDescription; Rec."Description")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Describes what the rule detects.';
                 }
-                field(OGEnabled; Rec."OG Enabled")
+                field(OGEnabled; Rec."Enabled")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies whether the rule is evaluated during a scan.';
                 }
-                field(OGArea; Rec."OG Area")
+                field(OGArea; Rec."Area")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the functional area for the rule.';
                 }
-                field(OGSeverity; Rec."OG Severity")
+                field(OGSeverity; Rec."Severity")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the severity assigned to exceptions detected by the rule.';
                 }
-                field(OGProvider; Rec."OG Provider")
+                field(OGProvider; Rec."Provider")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the AL provider that evaluates the rule.';
                 }
-                field(OGThresholdDays; Rec."OG Threshold Days")
+                field(OGThresholdDays; Rec."Threshold Days")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the number of days used by rules that evaluate document age.';
                 }
-                field(OGLastRunAt; Rec."OG Last Run At")
+                field(OGLastRunAt; Rec."Last Run At")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies when this rule last ran successfully.';
                 }
-                field(OGLastError; Rec."OG Last Error")
+                field(OGLastError; Rec."Last Error")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Shows the most recent rule evaluation error, if any.';
@@ -75,7 +75,7 @@ page 71002 "OG Rule Setup"
 
                 trigger OnAction()
                 var
-                    OGRuleSetupMgt: Codeunit "OG Rule Setup Mgt.";
+                    OGRuleSetupMgt: Codeunit "RuleSetupMgt_OG_SRT";
                 begin
                     OGRuleSetupMgt.OGEnsureDefaults();
                     CurrPage.Update(false);
@@ -90,8 +90,8 @@ page 71002 "OG Rule Setup"
 
                 trigger OnAction()
                 var
-                    OGExceptionEngine: Codeunit "OG Exception Engine";
-                    OGNotificationMgt: Codeunit "OG Notification Mgt.";
+                    OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
+                    OGNotificationMgt: Codeunit "NotificationMgt_OG_SRT";
                 begin
                     OGExceptionEngine.OGRunAll();
                     OGNotificationMgt.OGNotifyCriticalExceptions();
@@ -103,7 +103,7 @@ page 71002 "OG Rule Setup"
                 ApplicationArea = All;
                 Caption = 'Exception Inbox';
                 Image = List;
-                RunObject = page "OG Exception Inbox";
+                RunObject = page "ExceptionInbox_OG_SRT";
                 ToolTip = 'Opens the Operations Guardian exception inbox.';
             }
         }

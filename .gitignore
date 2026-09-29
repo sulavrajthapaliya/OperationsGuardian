@@ -1,0 +1,7 @@
+.alcache/
+../alcache/
+.snapshots/
+.output/
+rad.json
+*.g.xlf
+TestResults.xml
