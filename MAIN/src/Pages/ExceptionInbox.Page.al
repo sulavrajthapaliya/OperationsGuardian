@@ -37,7 +37,14 @@ page 71000 "ExceptionInbox_OG_SRT"
                 field(OGSourceNo; Rec."Source No.")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the source document or record number.';
+                    ToolTip = 'Specifies the source document or record number. Choose the value to open the source record.';
+
+                    trigger OnDrillDown()
+                    var
+                        OGExceptionEngine: Codeunit "ExceptionEngine_OG_SRT";
+                    begin
+                        OGExceptionEngine.OGOpenSource(Rec);
+                    end;
                 }
                 field(OGRuleCode; Rec."Rule Code")
                 {
@@ -101,8 +108,9 @@ page 71000 "ExceptionInbox_OG_SRT"
             action(OGOpenSource)
             {
                 ApplicationArea = All;
-                Caption = 'Open Source';
+                Caption = 'Show Record';
                 Image = Navigate;
+                Scope = Repeater;
                 ToolTip = 'Opens the Business Central record that caused the exception.';
 
                 trigger OnAction()
